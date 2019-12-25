@@ -1,0 +1,410 @@
+<!--
+This html file is intended for project crimeSpy (UC SENG 202 assignment)
+It is the html file loaded in order to provide google maps functionality
+Java code will most likely expect a div tag with the id map to inject content
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map: Google map for crimeSpy</title>
+
+    <!-- todo: Maybe put this in a css file?? -->
+    <style>
+        /*Style attempts to mirror the current style of google maps - since that's the mapping software we're using */
+        html, body {
+            height: 100%; margin: 0; padding: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        /* this is not currently used but could be useful later*/
+        #status-bar {
+            background-color: rgba(255, 255, 255, .7);
+            bottom: 5px;
+            padding: 10px 10px 10px 10px;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+            visibility: hidden;
+            z-index: 10;
+        }
+        #status-bar .status-text {
+            font-family: Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        /* The following defines style rules for the google marker popup */
+        a {
+            color: #b3b3b3;
+            margin-top: 10px;
+            text-decoration: underline;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        [class^="crime-info"] {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            font-weight: normal !important;
+        }
+        /*for info windows : dynamically made marker popups*/
+        .crime-info-heading {
+            -webkit-border-radius:  5px;
+            -moz-border-radius:     5px;
+            border-radius:          5px;
+            background-color: #f3f3f3;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px 10px 0 10px;
+            vertical-align: bottom;
+        }
+        .crime-info-data {
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        #heat-map-toggle {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 1px solid #f3f3f3;
+            right: 10px;
+            top: 10px;
+            padding: 2px 10px 5px 10px;
+            position: fixed;
+            text-align: left;
+            visibility: hidden;
+            z-index: 10;
+        }
+        #heat-map-toggle.on {
+            background-color: #f3f3f3 !important;
+        }
+        #heat-map-toggle.off {
+            background-color: #ffffff !important;
+        }
+        #heat-map-toggle:hover {
+            cursor: pointer;
+        }
+        hr {
+            border: 0;
+            color: #f3f3f3;
+            height: 1px;
+        }
+        #message-box {
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            background-color: #ffffff;
+            border: 1px solid #f3f3f3;
+            cursor: pointer;
+            left: 150px;
+            top: 10px;
+            padding: 2px 10px 5px 10px;
+            position: fixed;
+            text-align: left;
+            visibility: hidden;
+            z-index: 10;
+        }
+        #message-box:hover {
+            background-color: #f2f2f2;
+        }
+        .message-heading {
+            font-family: Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .message-body {
+            font-family: Helvetica, sans-serif;
+            font-size: 10px;
+            font-weight: normal;
+        }
+        #hide-navigation {
+            background-color: rgba(255, 255, 255, .0);
+            bottom: 0px;
+            padding: 10px 10px 10px 10px;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+            z-index: 9;
+        }
+
+    </style>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=visualization"></script>
+    <script type="text/javascript">
+
+        // this is an attempt to prevent caution the user from navigating away from the page.
+        window.onbeforeunload = function () {return "Navigating away from this page may ruin your experience.";};
+
+
+        /*          VARIABLES          */
+
+        var map;
+        var heatMap;
+        var markers = [];
+        var heatMarkers = new google.maps.MVCArray();
+
+        // minimum number of markers for heat map toggle to become available
+        var MIN_FOR_HEAT = 20;
+        var INIT_MAP_RADIUS = 60;
+        var MAX_MARKER_LIMIT = 400;
+
+
+        /*          MAPPING FUNCTIONS          */
+
+        // Initialise map.
+        // Note that street view enables some navigational links that can get the user lost - outside the CrimeSpy system
+        // Current center on chicago ( majority of crime data is expected to be from there )
+        function initMap() {
+            markers = [];
+            heatMarkers.clear();
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 41.88087, lng: -87.7059},
+                zoom: 12,
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            heatMap = new google.maps.visualization.HeatmapLayer({
+                data: heatMarkers,
+                radius: INIT_MAP_RADIUS
+            });
+            showMarkers();
+        }
+
+
+
+        // add a marker to marker array at (lat:x, lng:y)
+        // todo: find a more elegant solution to the maximum marker problem
+        function addMarker(x, y, popupMsg, crimeTitle, crimeIcon) {
+            var msg;
+            if (markers.length < MAX_MARKER_LIMIT) {
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(x, y),
+                    map: map,
+                    draggable: false,
+                    title: crimeTitle,
+                    autoPan: true//,  // <---Add this comma if you add a crimeIcon below
+                    //icon: crimeIcon // <---Add nice icon functionality here if there is time
+                });
+                var infoBox = new google.maps.InfoWindow({content: popupMsg});
+                google.maps.event.addListener(marker, 'click', function () {infoBox.open(map, marker);});
+                markers.push(marker);
+                showMessage("Currently loaded " + markers.length + " markers", "Message:");
+            } else {
+                msg = "Unable to load any more makers.<br>";
+                msg += "Currently: " + markers.length;
+                msg += " markers are loaded in the markers array";
+                showMessage(msg , "Marker Limit Reached");
+            }
+        }
+
+
+        // Plot all markers in markers array
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+            // Toggle visibility of heatmap button based on number of points on the map
+            if (markers.length > MIN_FOR_HEAT ) {
+                showHeatMapToggleButton();
+            } else {
+                hideHeatMapToggleButton();
+            }
+        }
+
+
+        // Remove markers from the map
+        function clearMarkers() {
+            // showMessage('Attempting to clear markers', 'javascript'); // <-- Debug message
+            setMapOnAll(null);
+        }
+
+
+        // Show markers currently in array markers
+        function showMarkers() {
+            setMapOnAll(map);
+            turnOffHeatMap();
+        }
+
+
+        // Deletes all markers in the markers array
+        function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+        }
+
+        /*          MESSAGING FUNCTIONS          */
+
+
+        // Function to report a crime tip
+        // todo: make this do something cool
+        function reportTip() {
+            var msg;
+            msg = "We apologise that this feature is still in development<br>";
+            msg += "Please try again at a later date or make the report by phone call.";
+            showMessage(msg, 'Submit a Tip',10000);
+        }
+
+
+        // Display a message in the message-box div for 5 seconds or until clicked
+        function showMessage(msg, title, delay) {
+            var text;
+            text = "<span onclick='hideMessage()'>";
+            if (title != "") {
+                text += "<span class='message-heading'>" + title + ": </span><br>";
+            }
+            text += "<span class='message-body'>" + msg + "</span>";
+            text += "</span>";
+            document.getElementById("message-box").innerHTML = text;
+            document.getElementById("message-box").style.visibility = "visible";
+            if (delay == null) {delay = 5000}
+            setTimeout(function(){hideMessage()}, delay);
+        }
+
+
+        // Hide and destroy content in the message-box div
+        function hideMessage() {
+            document.getElementById("message-box").innerHTML = "";
+            document.getElementById("message-box").style.visibility = "hidden";
+        }
+
+
+        // Change status to message. Will display until next clear if delay is null
+        // Otherwise delay is in miliseconds
+        function setStatus(msg, delay) {
+            var text;
+            text = "<span class='status-text'>";
+            text += msg + "</span>";
+            document.getElementById("status-bar").innerHTML = text;
+            document.getElementById("status-bar").style.visibility = "visible";
+            if (delay != null) {
+                setTimeout(function(){clearStatus()}, delay);
+            }
+        }
+
+
+        // Change status to message
+        function clearStatus() {
+            document.getElementById("status-bar").innerHTML = "";
+            document.getElementById("status-bar").style.visibility = "hidden";
+        }
+
+
+        /*         HEAT MAP CODE           */
+
+        // Just turn the heatmap off
+        function turnOffHeatMap() {
+            updateMarkers();
+            // Toggle button colour to remind the user of context
+            var property = document.getElementById("heat-map-toggle");
+            if (property.className == "on") {
+                setStatus("CLOSING HEATMAP", 5000);
+                property.className = "off";
+                destroyHeatMap();
+            }
+        }
+
+
+        // Toggle the heatMap on and off
+        function toggleHeatMap() {
+            updateMarkers();
+            // Toggle button colour to remind the user of context
+            var property = document.getElementById("heat-map-toggle");
+            if (property.className == "on") {
+                setStatus("CLOSING HEATMAP", 5000);
+                property.className = "off";
+                showMarkers();
+                destroyHeatMap();
+            } else {
+                setStatus("SHOWING HEATMAP", 5000);
+                property.className = "on";
+                heatMap.setMap(map);
+                clearMarkers();
+            }
+        }
+
+        // update the MVC array for the heatMap
+        function updateMarkers() {
+            //var points = [];
+            for (var i = 0; i < markers.length; i++) {
+                heatMarkers.push( new google.maps.LatLng(markers[i].position.lat(), markers[i].position.lng() ) );
+            }
+            return heatMarkers;
+        }
+
+
+        // Close the heatMap
+        function destroyHeatMap() {
+            heatMap.setMap(null);
+        }
+
+
+        // Toggle the radius of the heat signature for the heatMap
+        function changeRadius() {
+            heatMap.set('radius', heatMap.get('radius') ? 20 : 50);
+        }
+
+
+        // hide the toggle heat map button (div).
+        function hideHeatMapToggleButton() {
+            document.getElementById("heat-map-toggle").style.visibility = "hidden";
+        }
+
+
+        // show the toggle heat map button (div).
+        function showHeatMapToggleButton() {
+            document.getElementById("heat-map-toggle").style.visibility = "visible";
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <!--
+        In general this debug div should not be used.
+        But if required to display debug information this
+        can be done by calling showMessage(msg, title);
+    -->
+    <div id="message-box" class="hidden" onclick="hideMessage();"></div>
+
+
+    <!--
+        Dynamically visible button to toggle the heat map on and off.
+        This should become visible when it makes sense for a heat map to be
+        visible only: after a certain number of points have loaded.
+    -->
+    <div id="heat-map-toggle" class="off" onclick="toggleHeatMap();">
+        <span class="message-heading">Toggle HeatMap</span>
+    </div>
+
+
+    <!-- Google map is inserted in this div -->
+    <div id="map"></div>
+
+
+    <!-- this is intended for user feedback -->
+    <div id="status-bar" onclick="clearStatus();"></div>
+
+
+    <!--
+        This blocks the google navigation (to prevent users from ruining their
+        experience of the application :(
+     -->
+    <div id="hide-navigation"></div>
+
+</body>
+
+
+</html>

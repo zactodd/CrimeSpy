@@ -1,0 +1,65 @@
+<!--
+This html file is intended for project crimeSpy (UC SENG 202 assignment)
+It is the html file loaded in order to provide a single point description
+of a crime record in the info pane.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map: Google map for crimeSpy</title>
+
+    <!-- todo: Maybe put this in a css file?? -->
+    <style>
+        /*Style attempts to mirror the current style of google maps - since that's the mapping software we're using */
+        html, body {
+            height: 100%; margin: 0; padding: 0;
+        }
+        #miniMap {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript">
+
+        var map;
+        var marker;
+
+        // Initialise the mini map map
+        // Current center on chicago in the event that there is no lat/long data
+        // ( majority of crime data is expected to be from there )
+        function initMiniMap(latitude, longitude) {
+            if (latitude == null || latitude == 0) {
+                latitude = 41.88087;
+            }
+            if (longitude == null || longitude == 0) {
+                longitude = -87.7059;
+            }
+            var myLatLng = {lat: latitude, lng: longitude};
+            map = new google.maps.Map(document.getElementById('miniMap'), {
+                center: {lat: latitude, lng: longitude},
+                zoom: 17,
+                streetViewControl: false
+                //mapTypeId: google.maps.MapTypeId.SATELLITE
+            });
+
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map
+            });
+            marker.setMap(map);
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+    <!-- The mini map is inserted in this div -->
+    <div id="miniMap"></div>
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--?import org.controlsfx.control.CheckComboBox?-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.WebView?>
+<BorderPane fx:id="controllerPane" prefHeight="672.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.crimeSpy.uiElements.CrimeSpyController">
+    <!--Menu Bar
+    features:
+    changes tab view
+    change between create and edit
+    points to save, export, import and, open
+    opens about and help documents-->
+    <top>
+        <MenuBar>
+            <menus>
+
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToCreateMenu" text="Create Crime Record" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="goToOpenFile" mnemonicParsing="false" onAction="#goToOpenFileMenu" text="Open CrimeSpy Database" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToImportFileMenu" text="Import File" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToSaveFileMenu" text="Save as" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToExportFileMenu" text="Export Database" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToEditMenu" text="Edit Crime Record" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToDeleteMenu" text="Delete Crime Record" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem fx:id="goToMapView" mnemonicParsing="false" onAction="#goToMapView" text="Map" />
+                        <MenuItem fx:id="goToGridView" mnemonicParsing="false" onAction="#goToGridView" text="Table" />
+                        <MenuItem fx:id="goToGraphView" mnemonicParsing="false" onAction="#goToGraphView" text="Summary" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#toggleFilter" text="Filter" />
+                        <MenuItem mnemonicParsing="false" onAction="#toggleInfoPane" text="Info" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToHelpMenu" text="Help Documents" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToAboutMenu" text="About seng202.crimeSpy" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <!-- end of Menu bar -->
+    <!--Filter panel
+    features:
+    Crime Type, Primary Description, Secondary description, FBICD, IUCR, Ward, Beat Location Description,
+    Time/date, Arrest and  Domestic filtering/search
+    Change of currentWorkingCollection
+    Refresh button-->
+    <left>
+        <AnchorPane fx:id="filterPane" SplitPane.resizableWithParent="true">
+            <children>
+                <AnchorPane>
+                    <children>
+
+                    </children>
+                </AnchorPane>
+                <VBox maxWidth="350" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <!--Search related items-->
+                        <HBox prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="searchItem" onAction="#goSearchButton" onKeyTyped="#clearSearch" onMouseEntered="#clearSearch" onMouseExited="#addsSearch" prefHeight="25.0" prefWidth="149.0" text="Search..." HBox.hgrow="ALWAYS" />
+                                <Button fx:id="searchButton" mnemonicParsing="false" onAction="#goSearchButton" prefWidth="48.0" text="Go" />
+                                <Button mnemonicParsing="false" onAction="#filterTab" text="Refresh" />
+                            </children>
+                            <padding>
+                                <Insets left="5.0" right="5.0" />
+                            </padding>
+                        </HBox>
+                        <Label disable="true" text="Filter" textFill="#a1a1a1">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="5.0" />
+                            </VBox.margin>
+                        </Label>
+                        <!-- currentWorkingCollection -->
+                        <ComboBox fx:id="crimeCollectionSelector" onAction="#clearFilter" prefHeight="27.0" prefWidth="240.0" promptText="Crime Collection" VBox.vgrow="NEVER">
+                            <VBox.margin>
+                                <Insets left="5.0" />
+                            </VBox.margin></ComboBox>
+                        <!-- filter accordion -->
+                        <Accordion VBox.vgrow="ALWAYS">
+                            <panes>
+                                <TitledPane animated="false" text="Crime Type">
+                                    <content>
+                                        <ScrollPane fitToHeight="true" hbarPolicy="NEVER">
+                                            <content>
+                                                <VBox fx:id="filterCrimeType" maxHeight="1.7976931348623157E308" spacing="5.0">
+                                                    <children>
+                                                    </children>
+                                                </VBox>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Crime Description">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-0.0">
+                                                    <children>
+                                                        <TextField fx:id="filterPrimary" onAction="#goFilter" onKeyTyped="#clearPrimary" onMouseEntered="#clearPrimary" onMouseExited="#addsPrimary" text="Primary Description..." />
+                                                        <TextField fx:id="filterSecondary" onAction="#goFilter" onKeyTyped="#clearSecondary" onMouseEntered="#clearSecondary" onMouseExited="#addsSecondary" text="Secondary Description..." />
+                                                        <TextField fx:id="filterIUCR" onAction="#goFilter" onKeyTyped="#clearIUCR" onMouseEntered="#clearIUCR" onMouseExited="#addsIUCR" text="IUCR..." />
+                                                        <TextField fx:id="filterFBICD" onAction="#goFilter" onKeyTyped="#clearFBICD" onMouseEntered="#clearFBICD" onMouseExited="#addsFBICD" text="FBICD..." />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Location Description">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <TextField fx:id="filterLocation" onAction="#goFilter" onKeyTyped="#clearLocation" onMouseEntered="#clearLocation" onMouseExited="#addsLocation" text="Location..." />
+                                                        <TextField fx:id="filterBeat" onAction="#goFilter" onKeyTyped="#clearBeat" onMouseEntered="#clearBeat" onMouseExited="#addsBeat" text="Beat..." />
+                                                        <TextField fx:id="filterWard" onAction="#goFilter" onKeyTyped="#clearWard" onMouseEntered="#clearWard" onMouseExited="#addsWard" text="Ward..." />
+                                                        <TextField fx:id="filterBlock" onAction="#goFilter" onKeyTyped="#clearBlock" onMouseEntered="#clearBlock" onMouseExited="#addsBlock" text="Block..." />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" text="Date">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <DatePicker fx:id="filterDateFrom" maxWidth="1.7976931348623157E308" onAction="#goFilter" promptText="From" />
+                                                        <DatePicker fx:id="filterDateTo" maxWidth="1.7976931348623157E308" onAction="#goFilter" promptText="To" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane text="Arrest">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-0.0">
+                                                    <children>
+                                                        <CheckBox fx:id="filterIsArrest" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goFilter" text="Filter Arrest" />
+                                                        <CheckBox fx:id="filterArrest" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goFilter" text="Arrest Made" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" prefHeight="201.0" prefWidth="250.0" text="Domestic">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <CheckBox fx:id="filterIsDomestic" mnemonicParsing="false" onAction="#goFilter" text="Filter Domestic" />
+                                                        <CheckBox fx:id="filterDomestic" mnemonicParsing="false" onAction="#goFilter" text="Domestic" />
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                            </panes>
+                            <BorderPane.margin>
+                                <Insets top="35.0" />
+                            </BorderPane.margin>
+                        </Accordion>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </left>
+    <!-- End of filter -->
+    <!-- TabPane and hide buttons
+    features:
+    hiding of information and filter
+    various tabs and there functionality-->
+    <center>
+        <AnchorPane fx:id="tabbedPane" prefWidth="800.0" SplitPane.resizableWithParent="true">
+            <children>
+
+                <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button fx:id="filterToggle" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#toggleFilter" prefWidth="0.0" HBox.hgrow="NEVER" />
+                        <TabPane fx:id="tabPane" onMouseClicked="#tabChange" side="LEFT" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                            <tabs>
+                                <Tab fx:id="mapTab" text="Map">
+                                    <content>
+                                        <AnchorPane>
+                                            <children>
+                                                <WebView fx:id="mapView" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="gridTab" text="Table">
+                                    <content>
+                                        <AnchorPane>
+                                            <children>
+                                                <TableView fx:id="gridTable" onMouseClicked="#quickOpenInfoPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="caseIDCol" prefWidth="121.1615982055664" text="Case ID#" />
+                                                        <TableColumn fx:id="dateCol" prefWidth="121.1615982055664" text="Date" />
+                                                        <TableColumn fx:id="arrestCol" prefWidth="121.1615982055664" text="Arrest made" />
+                                                        <TableColumn fx:id="domesticCol" prefWidth="121.1615982055664" text="Domestic" />
+                                                        <TableColumn fx:id="iucrCol" prefWidth="121.1615982055664" text="IUCR" />
+                                                        <TableColumn fx:id="fbiCDCol" prefWidth="121.1615982055664" text="FBI Crime Descriptor" />
+                                                        <TableColumn fx:id="secDescripCol" prefWidth="121.1615982055664" text="Secondary" />
+                                                        <TableColumn fx:id="blockCol" prefWidth="121.1615982055664" text="Block" />
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab fx:id="graphTab" text="Summary">
+                                    <content>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <GridPane onMouseClicked="#swapWithMain" prefHeight="214.0" prefWidth="731.0" VBox.vgrow="SOMETIMES">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <AnchorPane fx:id="miniGraph1" maxWidth="1.7976931348623157E308" prefHeight="200.0" />
+                                                        <AnchorPane fx:id="miniGraph2" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
+                                                        <AnchorPane fx:id="miniGraph3" GridPane.columnIndex="2" GridPane.vgrow="ALWAYS" />
+                                                        <AnchorPane fx:id="miniGraph4" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                                                    </children>
+                                                </GridPane>
+
+                                                <AnchorPane fx:id="mainGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                        <Button fx:id="infoToggle" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" mnemonicParsing="false" onAction="#toggleInfoPane" prefHeight="647.0" prefWidth="0.0" HBox.hgrow="NEVER" />
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </center>
+    <!--End of TabbedPane -->
+    <!-- Information pane
+    features:
+    Edit/ create functionality-->
+    <right>
+        <AnchorPane fx:id="crimeDataInfoPane" prefHeight="647.0" prefWidth="447.0" SplitPane.resizableWithParent="true">
+            <children>
+                <ScrollPane prefHeight="650.0" prefWidth="447.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1076.0" prefWidth="432.0">
+                            <children>
+                                <VBox alignment="TOP_CENTER" layoutX="-17.0" layoutY="-1.0" prefHeight="1072.0" prefWidth="338.0" spacing="10" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="-1.0">
+                                    <children>
+                                        <Label fx:id="infoHeader" alignment="TOP_LEFT" contentDisplay="TOP" maxWidth="1.7976931348623157E308" text="Create" textFill="#a1a1a1" visible="false">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <GridPane hgap="3.0" prefHeight="433.0" prefWidth="422.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="130.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="200.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="10.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="130.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="200.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="53.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label prefHeight="25.0" text="Crime ID*:">
+                                       <tooltip>
+                                          <Tooltip text="Unique Crime ID - Mandatory" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoCrimeID" editable="false" prefWidth="241.0" GridPane.columnIndex="1" />
+                                                <Label prefHeight="25.0" text="Date:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <graphic>
+                                                        <DatePicker fx:id="infoDate" editable="false" prefHeight="25.0" prefWidth="137.0" />
+                                                    </graphic>
+                                                </Label>
+                                                <Label prefHeight="34.0" prefWidth="35.0" text="Time:" GridPane.rowIndex="2" />
+                                                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <TextField fx:id="infoTimeHour" editable="false" onKeyReleased="#validateTimeHour" promptText="0">
+                                             <tooltip>
+                                                <Tooltip text="Hour" />
+                                             </tooltip></TextField>
+                                                        <TextField fx:id="infoTimeMinute" editable="false" onKeyReleased="#validateTimeMinute" promptText="0">
+                                             <tooltip>
+                                                <Tooltip text="Minute" />
+                                             </tooltip></TextField>
+                                                    </children>
+                                                </HBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                       <children>
+                                                      <CheckBox fx:id="infoArrest" disable="true" mnemonicParsing="false" prefHeight="25.0" text="Arrest">
+                                             <tooltip>
+                                                <Tooltip text="If an Arrest was made" />
+                                             </tooltip></CheckBox>
+                                                      <CheckBox fx:id="infoDomestic" disable="true" mnemonicParsing="false" prefHeight="25.0" text="Domestic">
+                                             <tooltip>
+                                                <Tooltip text="If the Crime was Domestic" />
+                                             </tooltip></CheckBox>
+                                       </children>
+                                    </VBox>
+                                                <Label prefHeight="25.0" text="IUCR*:" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                       <tooltip>
+                                          <Tooltip text="Illinois Uniform Crime Reporting code - Mandatory" />
+                                       </tooltip></Label>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                    <children>
+                                                        <TextField fx:id="infoIUCR" editable="false" onKeyReleased="#validateIUCR" />
+                                                        <Label fx:id="iucrValidationFeedbackLabel" prefHeight="17.0" prefWidth="176.0" textFill="#933333">
+                                                            <font>
+                                                                <Font size="9.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label prefHeight="25.0" text="FBI CD:" GridPane.rowIndex="4">
+                                       <tooltip>
+                                          <Tooltip text="FBICD Crime Code" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoFBI" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label prefHeight="25.0" text="Description:" GridPane.rowIndex="5">
+                                       <tooltip>
+                                          <Tooltip text="Primary Description of Crime from IUCR" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoPrimary" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <Label prefHeight="25.0" text="SEC Descript:" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                       <tooltip>
+                                          <Tooltip text="Secondary Description of Crime from IUCR" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoSecondary" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                                                <Label prefHeight="25.0" text="Block*:" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                       <tooltip>
+                                          <Tooltip text="Block Address - Mandatory and obfuscated" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoBlock" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                                                <Label prefHeight="25.0" text="Beat:" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                                       <tooltip>
+                                          <Tooltip text="Chicago Beat Number" />
+                                       </tooltip></Label>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                    <children>
+                                                        <TextField fx:id="infoBeat" editable="false" onKeyReleased="#validateBeat" />
+                                                        <Label fx:id="beatValidationFeedbackLabel" prefHeight="17.0" prefWidth="176.0" textFill="#933333">
+                                                            <font>
+                                                                <Font size="9.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label prefHeight="25.0" text="Ward:" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                                       <tooltip>
+                                          <Tooltip text="Chicago Ward Number" />
+                                       </tooltip></Label>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                                                    <children>
+                                                        <TextField fx:id="infoWard" editable="false" onKeyReleased="#validateWard" />
+                                                        <Label fx:id="wardValidationFeedbackLabel" prefHeight="17.0" prefWidth="176.0" textFill="#933333">
+                                                            <font>
+                                                                <Font size="9.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label prefHeight="25.0" text="Latitude:" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                                       <tooltip>
+                                          <Tooltip text="Latitude of Crime" />
+                                       </tooltip></Label>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                    <children>
+                                                        <TextField fx:id="infoLat" editable="false" onKeyReleased="#validateLatitude" />
+                                                        <Label fx:id="latitudeValidationFeedbackLabel" prefHeight="15.0" prefWidth="200.0" textFill="#933333">
+                                                            <font>
+                                                                <Font size="9.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label prefHeight="25.0" text="Longitude:" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                                       <tooltip>
+                                          <Tooltip text="Logitude of Crime" />
+                                       </tooltip></Label>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                                                    <children>
+                                                        <TextField fx:id="infoLong" editable="false" onKeyReleased="#validateLongitude" />
+                                                        <Label fx:id="longitudeValidationFeedbackLabel" prefHeight="15.0" prefWidth="199.0" textFill="#933333">
+                                                            <font>
+                                                                <Font size="9.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <Label prefHeight="25.0" text="Location:" GridPane.rowIndex="8">
+                                       <tooltip>
+                                          <Tooltip text="Location Description of Crime" />
+                                       </tooltip></Label>
+                                                <Label prefHeight="25.0" text="X-Coord:" GridPane.rowIndex="9">
+                                       <tooltip>
+                                          <Tooltip text="X-Coordinate of Crime" />
+                                       </tooltip></Label>
+                                                <Label prefHeight="25.0" text="Y-Coord:" GridPane.columnIndex="3" GridPane.rowIndex="9">
+                                       <tooltip>
+                                          <Tooltip text="Y-Coordinate of Crime" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoLocation" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                <TextField fx:id="infoXCoor" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                <TextField fx:id="infoYCoor" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                                                <Label prefHeight="25.0" text="Time to Next:" GridPane.rowIndex="10">
+                                       <tooltip>
+                                          <Tooltip text="Time to Next Crime:" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoTimeNext" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                                <Label prefHeight="25.0" text="Distance to Next (Km):" GridPane.columnIndex="3" GridPane.rowIndex="10">
+                                       <tooltip>
+                                          <Tooltip text="Distance to Next Crime:" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoDistNext" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                                                <Label prefHeight="25.0" text="Time to Previous:" GridPane.rowIndex="11">
+                                       <tooltip>
+                                          <Tooltip text="Time to Previous Crime:" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoTimePrev" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                                                <Label prefHeight="25.0" text="Distance to Prev (Km):" GridPane.columnIndex="3" GridPane.rowIndex="11">
+                                       <tooltip>
+                                          <Tooltip text="Distance to Previous Crime:" />
+                                       </tooltip></Label>
+                                                <TextField fx:id="infoDistPrev" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                       <children>
+                                                      <Label fx:id="timeMinuteValidationFeedbackLabel" prefHeight="17.0" prefWidth="176.0" textFill="#933333">
+                                                          <font>
+                                                              <Font size="9.0" />
+                                                          </font>
+                                                      </Label>
+                                                      <Label fx:id="timeHourValidationFeedbackLabel" prefHeight="17.0" prefWidth="176.0" textFill="#933333">
+                                                          <font>
+                                                              <Font size="9.0" />
+                                                          </font>
+                                                      </Label>
+                                       </children>
+                                    </VBox>
+                                            </children>
+                                        </GridPane>
+                                        <StackPane maxWidth="1.7976931348623157E308" VBox.vgrow="NEVER">
+                                            <children>
+                                                <Button fx:id="editButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToEditMenu" text="Edit" />
+                                                <HBox fx:id="infoSaveBar" maxHeight="1.7976931348623157E308" visible="false">
+                                                    <children>
+                                                        <Button fx:id="saveCurrentButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goSave" text="Save" HBox.hgrow="ALWAYS" />
+                                                        <Button fx:id="cancelCreateButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" HBox.hgrow="ALWAYS" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </StackPane>
+                                        <HBox fx:id="prevNextBar">
+                                            <children>
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#prevTableItem" text="Prevous" HBox.hgrow="ALWAYS" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#nextTableItem" text="Next" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                        </HBox>
+                                        <VBox alignment="TOP_CENTER" prefHeight="422.0" prefWidth="422.0" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <WebView fx:id="miniMap" minHeight="-1.0" minWidth="-1.0" prefHeight="422.0" prefWidth="422.0" VBox.vgrow="ALWAYS" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="14.0" maxHeight="+Infinity" maxWidth="+Infinity"
+          minHeight="-Infinity" minWidth="-Infinity"
+          vgap="10.0" xmlns="http://javafx.com/javafx/8"
+          fx:controller="seng202.crimeSpy.uiElements.ImportController">
+    <children>
+        <VBox maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefWidth="400.0" spacing="7.0">
+            <children>
+                <Label fx:id="messageLabel" text="Import Database from Crime Data File" textAlignment="LEFT"
+                       wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="detailsLabel" text="File Types accepted are: .csv" textAlignment="LEFT" wrapText="true">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              GridPane.rowIndex="1">
+            <children>
+                <HBox fx:id="actionParent" alignment="CENTER">
+                    <children>
+                        <Button fx:id="browseButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="72.0"
+                                text="Browse" HBox.hgrow="NEVER" onAction="#goBrowseButton">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Button>
+                        <TextField fx:id="importLocationText" onKeyTyped="#clearBrowse" onMouseEntered="#clearBrowse"
+                                   onMouseExited="#addsBrowse" prefHeight="27.0" prefWidth="329.0"/>
+                    </children>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </HBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="24.0" layoutY="83.0" maxHeight="-Infinity" maxWidth="+Infinity"
+              minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="3">
+            <children>
+                <RadioButton fx:id="newRadio" layoutX="239.0" layoutY="10.0" mnemonicParsing="false"
+                             text="New Data" toggleGroup="$importType">
+                    <HBox.margin>
+                        <Insets right="20.0"/>
+                    </HBox.margin>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="importType"/>
+                    </toggleGroup>
+                </RadioButton>
+                <RadioButton fx:id="appendRadio" mnemonicParsing="false" selected="true" text="Append to existing Data" toggleGroup="$importType"/>
+            </children>
+        </HBox>
+        <HBox fx:id="actionParent1" alignment="CENTER_RIGHT" GridPane.rowIndex="4">
+            <children>
+                <Button fx:id="cancelButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false"
+                        onAction="#goCancelButton" text="Cancel" HBox.hgrow="NEVER">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="importButton" minWidth="80.0" mnemonicParsing="false" onAction="#goImportButton"
+                        text="Import" HBox.hgrow="NEVER">
+                    <HBox.margin>
+                        <Insets left="14.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="-Infinity"/>
+    </columnConstraints>
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+    </padding>
+    <rowConstraints>
+        <RowConstraints maxHeight="Infinity" minHeight="-Infinity" prefHeight="35.0" valignment="CENTER"
+                        vgrow="ALWAYS"/>
+        <RowConstraints maxHeight="57.0" minHeight="-Infinity" prefHeight="31.0" vgrow="NEVER"/>
+        <RowConstraints maxHeight="0.0" minHeight="-Infinity" prefHeight="0.0" vgrow="NEVER"/>
+        <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="14.0" vgrow="NEVER"/>
+        <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="46.0" vgrow="NEVER"/>
+    </rowConstraints>
+</GridPane>

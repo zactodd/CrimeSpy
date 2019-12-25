@@ -1,0 +1,92 @@
+/*
+    crimeSpy is a FOSS crime analysis software.
+    Copyright (C) 2015 SENG Team Supreme
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+package seng202.crimeSpy.crimeData;
+
+/**
+ * DATA ACCESS LAYER Interface
+ * <p>This interface is intended to be used by any persistent storage functions.</p>
+ * Any interaction (reading/writing/editing) with persistent storage (DB, file, XML...)
+ * <b>should</b> be done with the function naming defined within this interface. <br>
+ * <u>Notes</u>
+ * <ul>
+ *     <li>The creation of the persistent storage location/container is left to the
+ *     instantiating object (eg: FileManager will create a .csv, DBManager
+ *     will create a DB).</li>
+ *     <li>The conversion of the persistent storage media data to object data and
+ *     vice versa is also not covered by this interface.</li>
+ * </ul>
+ */
+public interface DAL_able {
+
+
+
+    /**
+     * Write a single block of crime record data to persistent storage.
+     * This method expects a CrimeRecord object.
+     * @param crime is a CrimeCollection object
+     */
+    void writeCrimeRecord(CrimeRecord crime);
+
+
+
+    /**
+     * Write a collection of crime data to persistent storage.
+     * This method expects a CrimeCollection (collection object of CrimeRecords)
+     * @param crimes is a CrimeCollection object
+     */
+    void writeCrimeRecords(CrimeCollection crimes);
+
+
+
+    /**
+     * Read a single crime record from persistent storage and return an
+     * equivalent CrimeRecord object
+     * @param crimeID A CrimeRecord ID
+     * @return a CrimeRecord object
+     */
+    CrimeRecord readCrimeRecord(String crimeID);
+
+
+
+    /**
+     * Read a collection of crime records from persistent storage and return an
+     * equivalent CrimeCollection object consisting of CrimeRecord objects
+     * @return a CrimeRecord object
+     */
+    CrimeCollection readCrimeRecords();
+
+
+
+    /**
+     * Read a single crime record from persistent storage and return an
+     * equivalent CrimeRecord object
+     */
+    void editCrimeRecord();
+
+
+
+    /**
+     * Read a collection of crime records from persistent storage and return an
+     * equivalent CrimeCollection object consisting of CrimeRecord objects
+     */
+    void editCrimeRecords();
+
+
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="14.0" maxHeight="+Infinity" maxWidth="+Infinity"
+          minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" xmlns="http://javafx.com/javafx/8"
+          fx:controller="seng202.crimeSpy.uiElements.ExportController">
+    <children>
+        <VBox maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefWidth="400.0" spacing="7.0">
+            <children>
+                <Label fx:id="messageLabel" text="Export Crime Data to Crime Data File" textAlignment="LEFT"
+                       wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="13.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              GridPane.rowIndex="1">
+            <children>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Button fx:id="browseButton" mnemonicParsing="false" onAction="#goBrowseButton"
+                                prefHeight="27.0" prefWidth="72.0" text="Browse" HBox.hgrow="NEVER">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Button>
+                        <TextField fx:id="saveLocationText" onKeyTyped="#clearBrowse" onMouseEntered="#clearBrowse"
+                                   onMouseExited="#addsBrowse" prefHeight="27.0" prefWidth="329.0"/>
+                    </children>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </HBox>
+            </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <children>
+                <AnchorPane prefHeight="27.0" prefWidth="403.0">
+                    <children>
+                        <Button fx:id="cancelButton" cancelButton="true" minWidth="80.0" mnemonicParsing="false"
+                                onAction="#goCancelButton" text="Cancel" AnchorPane.rightAnchor="100.0"/>
+                        <Button fx:id="saveButton" minWidth="80.0" mnemonicParsing="false" onAction="#goExportButton"
+                                text="Save" AnchorPane.rightAnchor="0.0"/>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="-Infinity"/>
+    </columnConstraints>
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
+    </padding>
+    <rowConstraints>
+        <RowConstraints maxHeight="Infinity" minHeight="-Infinity" prefHeight="19.0" valignment="CENTER"
+                        vgrow="ALWAYS"/>
+        <RowConstraints maxHeight="57.0" minHeight="-Infinity" prefHeight="34.0" vgrow="NEVER"/>
+        <RowConstraints maxHeight="24.0" minHeight="-Infinity" prefHeight="24.0" vgrow="NEVER"/>
+    </rowConstraints>
+</GridPane>

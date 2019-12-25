@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane hgap="14.0" maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="226.0" prefWidth="421.0" vgap="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.crimeSpy.uiElements.WelcomeController">
+    <children>
+        <VBox maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefHeight="72.0" prefWidth="378.0" spacing="7.0" GridPane.rowIndex="0">
+            <children>
+                <Label prefHeight="37.0" prefWidth="378.0" text="Welcome to CrimeSpy!" textAlignment="LEFT" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <Label text="CrimeSpy is an open-source crime analysis software suite designed for use with data released by the Chicago Local Government, but is designed to be easily modifiable for use with other data. Using crimeSpy, you can plot individual crime datapoints on a map, look at them in a table view, and perform basic data analysis." textAlignment="LEFT" wrapText="true">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="1">
+            <children>
+
+                <Button fx:id="HelpButton" minWidth="72.0" mnemonicParsing="false" onAction="#goToHelpMenu" prefHeight="27.0" prefWidth="133.0" text="Go to Help Menu" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+                </Button>
+            <Button fx:id="ImportButton" minWidth="72.0" mnemonicParsing="false" onAction="#goToImportMenu" prefHeight="27.0" prefWidth="110.0" text="Import a .csv" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="OpenButton" minWidth="72.0" mnemonicParsing="false" onAction="#goToOpenMenu" prefHeight="27.0" prefWidth="134.0" text="Open a Database" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            </children>
+        </HBox>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="+Infinity" minWidth="-Infinity" />
+    </columnConstraints>
+    <padding>
+        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+    </padding>
+    <rowConstraints>
+        <RowConstraints maxHeight="Infinity" minHeight="-Infinity" prefHeight="67.0" valignment="CENTER" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="29.0" minHeight="-Infinity" prefHeight="27.0" vgrow="NEVER" />
+    </rowConstraints>
+</GridPane>
