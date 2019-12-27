@@ -52,11 +52,14 @@ Execution of .jar From Command Line
     Linux  :> java -jar crimeSpy.jar
     Windows:> java -jar crimeSpy.jar
 
+Know Issues
+~~~~~~~~~~~
+1. The map panes are not delete after they are created and therefore take up alot of memory with reapte useage.
 
 Developers
 ~~~~~~~~~~
+Zachary Todd
 Nicolas Robinson-O'Brien
 Patrick Nicholls
 Ben Moskovitz
 James Bayly
-Zach Todd
