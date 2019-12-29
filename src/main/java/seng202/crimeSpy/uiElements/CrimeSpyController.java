@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package seng202.crimeSpy.uiElements;
+package crimeSpy.uiElements;
 
 
 import javafx.beans.value.ChangeListener;
@@ -47,11 +47,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
-import seng202.crimeSpy.crimeData.FilterCrimeCollection;
-import seng202.crimeSpy.crimeData.SearchCrimeCollection;
-import seng202.crimeSpy.uiElements.Graphs.*;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.FilterCrimeCollection;
+import crimeSpy.crimeData.SearchCrimeCollection;
+import crimeSpy.uiElements.Graphs.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -61,7 +61,7 @@ import java.util.logging.*;
 
 
 /**
- * The most important class of all GUI elements in seng202.crimeSpy
+ * The most important class of all GUI elements in crimeSpy
  * Controls all view tabs and most navigation functionality
  */
 public class CrimeSpyController {

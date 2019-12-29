@@ -16,10 +16,10 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import seng202.crimeSpy.crimeData.CrimeCollection;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
-import seng202.crimeSpy.crimeData.SQLiteDBHandler;
+import crimeSpy.crimeData.CrimeCollection;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.SQLiteDBHandler;
 
 import java.io.File;
 import java.util.ArrayList;

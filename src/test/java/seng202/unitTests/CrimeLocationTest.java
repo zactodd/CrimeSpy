@@ -3,7 +3,7 @@ package seng202.unitTests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import seng202.crimeSpy.crimeData.CrimeLocation;
+import crimeSpy.crimeData.CrimeLocation;
 
 import java.util.Arrays;
 

@@ -1,9 +1,9 @@
-package seng202.crimeSpy.uiElements.Graphs;
+package crimeSpy.uiElements.Graphs;
 
 import javafx.scene.chart.*;
 import javafx.scene.text.Font;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
 
 import java.util.HashMap;
 import java.util.Map;

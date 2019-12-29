@@ -1,11 +1,11 @@
-package seng202.crimeSpy.uiElements.Graphs;
+package crimeSpy.uiElements.Graphs;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
 
 /**
  * A Class for handling drawing a Arrest Pie Chart Graph

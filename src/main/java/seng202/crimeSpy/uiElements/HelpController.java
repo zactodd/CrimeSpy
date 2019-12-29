@@ -1,23 +1,6 @@
-/*
-    crimeSpy is a FOSS crime analysis software.
-    Copyright (C) 2015 SENG Team Supreme
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
- */
-
-package seng202.crimeSpy.uiElements;
+package crimeSpy.uiElements;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -26,15 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Window;
-import seng202.crimeSpy.Main;
-import seng202.crimeSpy.exceptionHandling.ResourceNotFoundException;
+import crimeSpy.Main;
+import crimeSpy.exceptionHandling.ResourceNotFoundException;
 
 import java.net.URL;
 
 
 /**
  * The Help Menu Dialog
- * Allows the user to view a help file for seng202.crimeSpy
+ * Allows the user to view a help file for crimeSpy
  */
 public class HelpController {
 
@@ -49,7 +32,7 @@ public class HelpController {
 
 
     /**
-     * Initializes the seng202.crimeSpy version number in this menu.
+     * Initializes the crimeSpy version number in this menu.
      */
     public void initData() {
         versionLabel.setText(Main.currentVersion);
@@ -69,7 +52,7 @@ public class HelpController {
      * Robust check for file url: check the resource location to ensure that it is valid.
      * @param resourceLoc String url of resource
      * @return URL object of legitimate resource url
-     * @throws seng202.crimeSpy.exceptionHandling.ResourceNotFoundException if the resource is not found
+     * @throws crimeSpy.exceptionHandling.ResourceNotFoundException if the resource is not found
      */
     private URL checkResource(String resourceLoc) throws ResourceNotFoundException {
         //LOGGER.info("Checking for url resource " + resourceLoc);

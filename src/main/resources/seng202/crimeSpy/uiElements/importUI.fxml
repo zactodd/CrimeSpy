@@ -7,7 +7,7 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="14.0" maxHeight="+Infinity" maxWidth="+Infinity"
           minHeight="-Infinity" minWidth="-Infinity"
           vgap="10.0" xmlns="http://javafx.com/javafx/8"
-          fx:controller="seng202.crimeSpy.uiElements.ImportController">
+          fx:controller="crimeSpy.uiElements.ImportController">
     <children>
         <VBox maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefWidth="400.0" spacing="7.0">
             <children>

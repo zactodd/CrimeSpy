@@ -8,8 +8,8 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import seng202.crimeSpy.crimeData.CrimeType;
-import seng202.crimeSpy.crimeData.SQLiteDBHandler;
+import crimeSpy.crimeData.CrimeType;
+import crimeSpy.crimeData.SQLiteDBHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;

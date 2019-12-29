@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seng202.crimeSpy.crimeData.*;
+import crimeSpy.crimeData.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class CSVFileHandlerTest {
                 "HALSTED ST",
                 621, 21, 1172409 ,1851438, 41.8808655731203,  -87.7058761048492, "DEPARTMENT STORE");
 
-        ArrayList<CrimeRecord> expectedResults = new ArrayList<>();
+        ArrayList<CrimeRecord> expectedResults = new ArrayList<CrimeRecord>();
 
         cc.addCrimeRecord(crime1);
         cc.addCrimeRecord(crime2);

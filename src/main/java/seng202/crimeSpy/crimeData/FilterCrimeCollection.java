@@ -1,4 +1,4 @@
-package seng202.crimeSpy.crimeData;
+package crimeSpy.crimeData;
 
 
 import org.joda.time.DateTime;

@@ -1,4 +1,4 @@
-package seng202.crimeSpy.uiElements;
+package crimeSpy.uiElements;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.w3c.dom.Document;
-import seng202.crimeSpy.crimeData.CrimeCollection;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
-import seng202.crimeSpy.exceptionHandling.ResourceNotFoundException;
+import crimeSpy.crimeData.CrimeCollection;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.exceptionHandling.ResourceNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;

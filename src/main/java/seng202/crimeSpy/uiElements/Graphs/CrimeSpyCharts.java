@@ -1,4 +1,4 @@
-package seng202.crimeSpy.uiElements.Graphs;
+package crimeSpy.uiElements.Graphs;
 
 import javafx.scene.chart.Chart;
 

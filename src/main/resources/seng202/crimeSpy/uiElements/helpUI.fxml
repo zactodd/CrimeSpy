@@ -9,12 +9,12 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity"
           minWidth="-Infinity"
           prefHeight="527.0" prefWidth="633.0" vgap="5.0" xmlns="http://javafx.com/javafx/8"
-          fx:controller="seng202.crimeSpy.uiElements.HelpController">
+          fx:controller="crimeSpy.uiElements.HelpController">
     <children>
         <VBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefWidth="400.0" spacing="7.0"
               GridPane.vgrow="NEVER">
             <children>
-                <Label fx:id="messageLabel" text="seng202.crimeSpy Help" textAlignment="LEFT" wrapText="true">
+                <Label fx:id="messageLabel" text="crimeSpy Help" textAlignment="LEFT" wrapText="true">
                     <font>
                         <Font name="System Bold" size="13.0"/>
                     </font>

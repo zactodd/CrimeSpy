@@ -1,24 +1,7 @@
-/*
-    crimeSpy is a FOSS crime analysis software.
-    Copyright (C) 2015 SENG Team Supreme
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
- */
 
 
-package seng202.crimeSpy.crimeData;
+
+package crimeSpy.crimeData;
 
 
 import org.joda.time.DateTime;
@@ -32,7 +15,7 @@ import java.util.logging.*;
 
 
 /**
- * A class to manage interactions between the seng202.crimeSpy system and the SQLite Database.
+ * A class to manage interactions between the crimeSpy system and the SQLite Database.
  * CollectionManager will use this to open/save/edit crime data to persistent storage.
  * Relies on: sqllite-jdbc.3.8.11.1.jar
  */
@@ -385,7 +368,7 @@ public class SQLiteDBHandler {
 
     /**
      * Creates a new empty crime collection database, a database in the working directory that
-     * keeps track of the various crime databases imported to seng202.crimeSpy
+     * keeps track of the various crime databases imported to crimeSpy
      * @throws SQLException new Crime_Collection_List database was not able to be created
      */
     public static void createNewCrimeCollectiondb() throws Exception {

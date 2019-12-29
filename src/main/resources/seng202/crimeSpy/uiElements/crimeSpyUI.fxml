@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.WebView?>
-<BorderPane fx:id="controllerPane" prefHeight="672.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.crimeSpy.uiElements.CrimeSpyController">
+<BorderPane fx:id="controllerPane" prefHeight="672.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="crimeSpy.uiElements.CrimeSpyController">
     <!--Menu Bar
     features:
     changes tab view
@@ -48,7 +48,7 @@
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#goToHelpMenu" text="Help Documents" />
-                        <MenuItem mnemonicParsing="false" onAction="#goToAboutMenu" text="About seng202.crimeSpy" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToAboutMenu" text="About crimeSpy" />
                     </items>
                 </Menu>
             </menus>

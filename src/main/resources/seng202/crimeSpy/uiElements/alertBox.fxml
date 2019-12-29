@@ -8,7 +8,7 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="14.0" maxHeight="+Infinity" maxWidth="+Infinity"
           minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="142.0" prefWidth="406.0" vgap="20.0"
-          xmlns="http://javafx.com/javafx/8" fx:controller="seng202.crimeSpy.uiElements.AlertBoxController">
+          xmlns="http://javafx.com/javafx/8" fx:controller="crimeSpy.uiElements.AlertBoxController">
     <children>
         <VBox maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" prefHeight="64.0" prefWidth="373.0"
               spacing="7.0" GridPane.rowIndex="0">

@@ -54,7 +54,7 @@
             <transformer
                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
               <manifestEntries>
-                <Main-Class>seng202.crimeSpy.Main</Main-Class>
+                <Main-Class>crimeSpy.Main</Main-Class>
                 <X-Compile-Source-JDK>1.8</X-Compile-Source-JDK>
                 <X-Compile-Target-JDK>1.8</X-Compile-Target-JDK>
               </manifestEntries>

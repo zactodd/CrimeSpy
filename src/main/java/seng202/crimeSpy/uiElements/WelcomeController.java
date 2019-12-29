@@ -1,4 +1,4 @@
-package seng202.crimeSpy.uiElements;
+package crimeSpy.uiElements;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeCollectionManager;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;

@@ -5,8 +5,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import seng202.crimeSpy.crimeData.CrimeRecord;
-import seng202.crimeSpy.crimeData.OR_Map;
+import crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.OR_Map;
 
 import static org.junit.Assert.assertEquals;
 

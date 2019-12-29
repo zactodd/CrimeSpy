@@ -1,23 +1,6 @@
-/*
-    crimeSpy is a FOSS crime analysis software.
-    Copyright (C) 2015 SENG Team Supreme
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
- */
-
-package seng202.crimeSpy.uiElements;
+package crimeSpy.uiElements;
 
 
 import javafx.fxml.FXML;
@@ -30,7 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeCollectionManager;
 
 import java.io.File;
 
@@ -39,7 +22,7 @@ import java.io.File;
 
 /**
  * The Open Menu Dialog
- * Allows the user to open a specific seng202.crimeSpy Database
+ * Allows the user to open a specific crimeSpy Database
  */
 public class OpenController {
 

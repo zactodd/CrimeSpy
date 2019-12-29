@@ -4,10 +4,10 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.*;
 import org.junit.rules.TestName;
-import seng202.crimeSpy.crimeData.CrimeCollection;
-import seng202.crimeSpy.crimeData.CrimeCollectionManager;
-import seng202.crimeSpy.crimeData.CrimeRecord;
-import seng202.crimeSpy.crimeData.SQLiteDBHandler;
+import crimeSpy.crimeData.CrimeCollection;
+import crimeSpy.crimeData.CrimeCollectionManager;
+import crimeSpy.crimeData.CrimeRecord;
+import crimeSpy.crimeData.SQLiteDBHandler;
 
 import java.io.File;
 import java.sql.Connection;
