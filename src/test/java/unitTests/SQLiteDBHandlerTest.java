@@ -1,4 +1,4 @@
-package seng202.unitTests;
+package unitTests;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

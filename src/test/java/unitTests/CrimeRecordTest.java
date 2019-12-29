@@ -1,4 +1,4 @@
-package seng202.unitTests;
+package unitTests;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;

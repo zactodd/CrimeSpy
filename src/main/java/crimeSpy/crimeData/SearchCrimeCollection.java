@@ -1,5 +1,3 @@
-
-
 package crimeSpy.crimeData;
 
 import java.io.IOException;

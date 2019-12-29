@@ -1,5 +1,3 @@
-
-
 package crimeSpy;
 
 import javafx.application.Application;

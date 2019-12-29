@@ -1,4 +1,4 @@
-package seng202.unitTests;
+package unitTests;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
