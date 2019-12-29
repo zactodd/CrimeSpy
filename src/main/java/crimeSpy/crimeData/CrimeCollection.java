@@ -20,8 +20,8 @@ import java.util.HashSet;
 public class CrimeCollection {
 
 
-    private ArrayList<CrimeRecord> crimeList = new ArrayList<>();
-    private HashSet<String> allCaseIDs = new HashSet<>();
+    private ArrayList<CrimeRecord> crimeList = new ArrayList<CrimeRecord>();
+    private HashSet<String> allCaseIDs = new HashSet<String>();
     private String name = "";
     private Integer id = null;
     private String directory = "";

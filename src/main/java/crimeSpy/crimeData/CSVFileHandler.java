@@ -101,7 +101,7 @@ public class CSVFileHandler {
     public static ArrayList<CrimeRecord> readCrimeRecords(String location) throws Exception {
         BufferedReader br = null;
         String line = "";
-        ArrayList<CrimeRecord> results = new ArrayList<>();
+        ArrayList<CrimeRecord> results = new ArrayList<CrimeRecord>();
         br = new BufferedReader(new FileReader(location));
         String firstLine = br.readLine(); //Read the first header line and disregard, validation goes here
         String expectedFirstLine = "CASE#,DATE  OF OCCURRENCE,BLOCK, IUCR, PRIMARY DESCRIPTION, " +

@@ -1,4 +1,4 @@
-package seng202.unitTests;
+package unitTests;
 
 
 import org.junit.Before;
@@ -51,7 +51,7 @@ public class CrimeTypeTest {
     @Before
     public void setUp() {
         String[] descriptionArray = {testPrimaryDescription, testSecondaryDescription};
-        ArrayList<String> result = new ArrayList<>(Arrays.asList(descriptionArray));
+        ArrayList<String> result = new ArrayList<String>(Arrays.asList(descriptionArray));
         // Let PowerMock know to mock all static methods in SQLiteDBHandler
         PowerMockito.mockStatic(SQLiteDBHandler.class);
         PowerMockito.when(SQLiteDBHandler.getCrimeTypeData(Mockito.anyString())).thenReturn(result);
@@ -263,7 +263,7 @@ public class CrimeTypeTest {
         String newIucr = "222B";
         String[] resString = {"testPrimaryDesciption", "testSecondaryDesciption"};
         // Let PowerMock know to mock all static methods in SQLiteDBHandler
-        ArrayList<String> result = new ArrayList<>(Arrays.asList(resString));
+        ArrayList<String> result = new ArrayList<String>(Arrays.asList(resString));
         // Let PowerMock know to mock all static methods in SQLiteDBHandler
         PowerMockito.mockStatic(SQLiteDBHandler.class);
         PowerMockito.when(SQLiteDBHandler.getCrimeTypeData(Mockito.anyString())).thenReturn(result);

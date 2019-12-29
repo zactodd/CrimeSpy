@@ -763,7 +763,7 @@ public class CrimeSpyController {
      * This is intended to enable the user to revert back to the previous data view.<br>
      */
     private void storeCurrentData() {
-        previousData = new ArrayList<>();
+        previousData = new ArrayList<String>();
         previousData.add(infoCrimeID.getText());
         previousData.add("12/12/12");//infoDate.getAccessibleText()); //<----fix
         previousData.add(infoArrest.isSelected() ? "Y" : "N");

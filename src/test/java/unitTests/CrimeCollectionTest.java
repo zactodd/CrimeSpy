@@ -31,7 +31,7 @@ public class CrimeCollectionTest {
     private CrimeRecord testCR_02;
     private CrimeCollection testCC_01;
 
-    private ArrayList<CrimeRecord> crimeArrayList = new ArrayList<>();
+    private ArrayList<CrimeRecord> crimeArrayList = new ArrayList<CrimeRecord>();
 
 
     /**

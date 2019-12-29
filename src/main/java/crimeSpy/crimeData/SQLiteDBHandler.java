@@ -208,7 +208,7 @@ public class SQLiteDBHandler {
         stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM CRIME_RECORD;");
 
-        ArrayList<CrimeRecord> results = new ArrayList<>();
+        ArrayList<CrimeRecord> results = new ArrayList<CrimeRecord>();
         while (rs.next()) {
             //System.out.println(rs.getString("CRIME_RECORD_ID"));  //Reads all data and prints the ID to sys.out
             try {

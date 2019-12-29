@@ -1018,7 +1018,7 @@ public class CrimeRecordTest {
     @Test
     public void test_getNextCrimeDistance_setNextCrimeDistance_null() {
         CrimeCollection cc = new CrimeCollection();
-        ArrayList<CrimeRecord> aL = new ArrayList<>();
+        ArrayList<CrimeRecord> aL = new ArrayList<CrimeRecord>();
         aL.add(cr);
         aL.add(crimeAtMyPlace);
         cc.populateCrimeRecords(aL);
@@ -1045,7 +1045,7 @@ public class CrimeRecordTest {
         cr2.setDate(cr2_DateTime);
 
         CrimeCollection cc = new CrimeCollection();
-        ArrayList<CrimeRecord> aL = new ArrayList<>();
+        ArrayList<CrimeRecord> aL = new ArrayList<CrimeRecord>();
         aL.add(cr);
         aL.add(cr2);
         cc.populateCrimeRecords(aL);
