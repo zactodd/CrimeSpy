@@ -9,7 +9,7 @@ import crimeSpy.crimeData.CrimeRecord;
 /**
  * A Class for handling drawing a Domestic Pie Chart Graph
  */
-public class DomestGraph implements CrimeSpyCharts {
+public class DomesticGraph implements CrimeSpyCharts {
 
 
     private PieChart domesticChart;
