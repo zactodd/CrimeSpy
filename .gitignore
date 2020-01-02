@@ -1,5 +1,6 @@
+*.iml
 .idea
 LOG_*
 *.db
-crimeSpy.iml
+*.csv
 target
