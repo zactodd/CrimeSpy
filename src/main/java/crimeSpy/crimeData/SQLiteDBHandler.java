@@ -433,35 +433,39 @@ public class SQLiteDBHandler {
         LOGGER.info("Opened database successfully");
 
         stmt = c.createStatement();
+        String sql = "";
+        if (!tableExist("CRIME_TYPE", c)) {
+            sql = "CREATE TABLE CRIME_TYPE " +
+                    " (CRIME_TYPE_ID            VARCHAR(20) PRIMARY KEY     NOT NULL, " +
+                    " CRIME_TYPE_NAME            VARCHAR(50)     NOT NULL, " +
+                    " CRIME_TYPE_SECONDARY        VARCHAR(50)     NOT NULL)";
+            stmt.executeUpdate(sql);
+        }
 
-        String sql = "CREATE TABLE CRIME_TYPE " +
-                " (CRIME_TYPE_ID            VARCHAR(20) PRIMARY KEY     NOT NULL, " +
-                " CRIME_TYPE_NAME            VARCHAR(50)     NOT NULL, " +
-                " CRIME_TYPE_SECONDARY        VARCHAR(50)     NOT NULL)";
-        stmt.executeUpdate(sql);
-
-        sql = "CREATE TABLE CRIME_RECORD " +
-                "(CRIME_RECORD_ID VARCHAR(20) PRIMARY KEY     NOT NULL," +
-                " CRIME_RECORD_DATE           VARCHAR(50), " +
-                " CRIME_RECORD_BLOCK            VARCHAR(50)     NOT NULL, " +
-                " CRIME_RECORD_LOCATION_DESCRIPTION        VARCHAR(50), " +
-                " CRIME_RECORD_ARREST        BOOLEAN, " +
-                " CRIME_RECORD_DOMESTIC        BOOLEAN, " +
-                " CRIME_RECORD_BEAT        INT, " +
-                " CRIME_RECORD_WARD        INT, " +
-                " CRIME_RECORD_XCOORDINATE        INT, " +
-                " CRIME_RECORD_YCOORDINATE        INT, " +
-                " CRIME_RECORD_LATITUDE        INT, " +
-                " CRIME_RECORD_LONGITUDE        INT, " +
-                " CRIME_RECORD_LOCATIONSTR        VARCHAR(50), " +
-                " PREV_CRIME_RECORD        INT, " +
-                " NEXT_CRIME_RECORD        INT, " +
-                " CRIME_TYPE_ID        VARCHAR(20)  NOT NULL, " +
-                " CRIME_RECORD_FBICD        VARCHAR(20), "  +
-                " FOREIGN KEY(PREV_CRIME_RECORD) REFERENCES CRIME_RECORD(CRIME_RECORD_ID), " +
-                " FOREIGN KEY(NEXT_CRIME_RECORD) REFERENCES CRIME_RECORD(CRIME_RECORD_ID), " +
-                " FOREIGN KEY(CRIME_TYPE_ID) REFERENCES CRIME_TYPE(CRIME_TYPE_ID))";
-        stmt.executeUpdate(sql);
+        if (!tableExist("CRIME_RECORD", c)) {
+            sql = "CREATE TABLE CRIME_RECORD " +
+                    "(CRIME_RECORD_ID VARCHAR(20) PRIMARY KEY     NOT NULL," +
+                    " CRIME_RECORD_DATE           VARCHAR(50), " +
+                    " CRIME_RECORD_BLOCK            VARCHAR(50)     NOT NULL, " +
+                    " CRIME_RECORD_LOCATION_DESCRIPTION        VARCHAR(50), " +
+                    " CRIME_RECORD_ARREST        BOOLEAN, " +
+                    " CRIME_RECORD_DOMESTIC        BOOLEAN, " +
+                    " CRIME_RECORD_BEAT        INT, " +
+                    " CRIME_RECORD_WARD        INT, " +
+                    " CRIME_RECORD_XCOORDINATE        INT, " +
+                    " CRIME_RECORD_YCOORDINATE        INT, " +
+                    " CRIME_RECORD_LATITUDE        INT, " +
+                    " CRIME_RECORD_LONGITUDE        INT, " +
+                    " CRIME_RECORD_LOCATIONSTR        VARCHAR(50), " +
+                    " PREV_CRIME_RECORD        INT, " +
+                    " NEXT_CRIME_RECORD        INT, " +
+                    " CRIME_TYPE_ID        VARCHAR(20)  NOT NULL, " +
+                    " CRIME_RECORD_FBICD        VARCHAR(20), " +
+                    " FOREIGN KEY(PREV_CRIME_RECORD) REFERENCES CRIME_RECORD(CRIME_RECORD_ID), " +
+                    " FOREIGN KEY(NEXT_CRIME_RECORD) REFERENCES CRIME_RECORD(CRIME_RECORD_ID), " +
+                    " FOREIGN KEY(CRIME_TYPE_ID) REFERENCES CRIME_TYPE(CRIME_TYPE_ID))";
+            stmt.executeUpdate(sql);
+        }
 
         populateIUCR(location);
         LOGGER.info("Crime table created successfully");
@@ -469,6 +473,18 @@ public class SQLiteDBHandler {
         c.close();
     }
 
+    /**
+     * Checks if a table with the name already exists.
+     * @param tableName the name of the table being checked.
+     * @param c the connection being checked.
+     * @return True if the table exists otherwise false.
+     * @throws SQLException
+     */
+    private static boolean tableExist(String tableName, Connection c) throws SQLException {
+        DatabaseMetaData dbm = c.getMetaData();
+        ResultSet tables = dbm.getTables(null, null, tableName, null);
+        return tables.next();
+    }
 
     /**
      * Quick method to populate the crime record database with IUCR codes from a csv file
@@ -483,15 +499,20 @@ public class SQLiteDBHandler {
         Class.forName("org.sqlite.JDBC");
         c = DriverManager.getConnection("jdbc:sqlite:" + location);
         c.setAutoCommit(false);
+
         LOGGER.info("Opened IUCR database for write successfully");
         for (String[] code : iucrCodes) {
             stmt = c.createStatement();
-            String sql = "INSERT INTO CRIME_TYPE (CRIME_TYPE_ID, CRIME_TYPE_NAME, CRIME_TYPE_SECONDARY) " +
-                    "VALUES ('" + code[0].replaceFirst("^0+(?!$)", "") + "', '" + code[1] + "', '" + code[2] + "')";
-            //Remove leading Zeros from the IUCR code
-            stmt.executeUpdate(sql);
-            stmt.close();
+            String crimeId = code[0].replaceFirst("^0+(?!$)", "");
+            String sql = "SELECT * FROM CRIME_TYPE WHERE CRIME_TYPE_ID == '" + crimeId + "'";
+            ResultSet resultSet = stmt.executeQuery(sql);
+            if (!resultSet.next()){
+                sql = "INSERT INTO CRIME_TYPE (CRIME_TYPE_ID, CRIME_TYPE_NAME, CRIME_TYPE_SECONDARY) " +
+                        "VALUES ('" + crimeId + "', '" + code[1] + "', '" + code[2] + "')";
+                stmt.executeUpdate(sql);
+            }
         }
+
         c.commit();
         populateIucrHashMap(location);
         LOGGER.info("IUCR codes populated successfully");
