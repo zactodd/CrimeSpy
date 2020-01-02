@@ -13,6 +13,8 @@ import crimeSpy.exceptionHandling.ResourceNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.*;
 
 /**
@@ -58,7 +60,7 @@ public class MapController {
     private static final String CRIME_REPORTING_SCRIPT = "onclick=\"reportTip()\"";
     private static final String MAP_ICON_URL = "crimeMapIcon_generic.png";
     private static boolean WEB_DOCUMENT_READY = false;
-    private static final Integer MAX_NUM_POINTS = 400;
+    private static final Integer MAX_NUM_POINTS = 100;
 
     private static WebView mapView;
 
@@ -223,9 +225,12 @@ public class MapController {
             String description;
             String crimeID;
             String iconURL;
-            // Add first 400 point data to the javascript array
-            for (int i=0; (i<MAX_NUM_POINTS && i<crimes.getCrimes().size()); i++) {
-                CrimeRecord crime = crimes.getCrimes().get(i);
+
+            // Add first 100 point data to the javascript array
+            List<CrimeRecord> crs = crimes.getCrimes();
+            Collections.shuffle(crs);
+            List<CrimeRecord> crimesSample = crs.subList(0, MAX_NUM_POINTS);
+            for (CrimeRecord crime : crimesSample){
                 latitude = crime.getCrimeLocation().getLatitude();
                 longitude = crime.getCrimeLocation().getLongitude();
                 description = getMapPointDescription(crime);
