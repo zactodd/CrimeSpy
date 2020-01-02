@@ -61,8 +61,8 @@ public class CrimeOverTimeGraph implements CrimeSpyCharts {
     private void graph(){
         Integer key;
         final NumberAxis yAxis = new NumberAxis();
-        int min = 365;
-        int max = 0;
+        Integer min = 365;
+        Integer max = 0;
         HashMap<Integer, Integer> lineData = new HashMap<Integer, Integer>();
 
         // Ensure there is data

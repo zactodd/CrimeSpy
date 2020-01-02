@@ -28,7 +28,7 @@ public class CrimeRecord {
     /**
      * Describes the minimum FBI CD number length.
      */
-    public final static int MIN_FBICD_LENGTH = 1;
+    public final static Integer MIN_FBICD_LENGTH = 1;
 
     private final static String LEGAL_FBICD_PATTERN = "^[a-zA-Z0-9]*$";
 
@@ -91,7 +91,7 @@ public class CrimeRecord {
     public CrimeRecord(String caseID, DateTime date, Boolean arrest, Boolean domestic,
                        String iucr, String fbiCD,
                        String block, Integer beat, Integer ward,
-                       double xCoord, double yCoord, double latitude, double longitude,  String location) {
+                       double xCoord, double yCoord, Double latitude, Double longitude,  String location) {
 
             this.caseID = caseID;
             this.date = date;
@@ -136,13 +136,13 @@ public class CrimeRecord {
      * "LIVELY LANE"       --> "LIVELY LANE"<br>
      */
     private void obfuscateRecord() {
-        boolean isChanged = false;
+        Boolean isChanged = false;
         String specificBlock = this.getCrimeLocation().getBlock();
         String obfuscatedBlock = "";
         if (specificBlock != null) {
 
             // get the first word which should be the address information to obfuscate
-            int index = specificBlock.indexOf(' ');
+            Integer index = specificBlock.indexOf(' ');
             String addressStart;
             String addressEnd;
 
@@ -156,8 +156,8 @@ public class CrimeRecord {
             }
 
             // Check the last two characters of address to see if they need obfuscation
-            int lastIndex = addressStart.length() - 1;
-            int secondLastIndex = lastIndex - 1;
+            Integer lastIndex = addressStart.length() - 1;
+            Integer secondLastIndex = lastIndex - 1;
             obfuscatedBlock = addressStart;
 
             // ...Last character - only modify if it is a digit otherwise assume incorrect format and ignore
@@ -401,9 +401,9 @@ public class CrimeRecord {
      * @throws IllegalArgumentException If the FBI CD number is not valid
      * @return true iff the string matches the pattern of a valid iucr code. false otherwise.
      */
-    public boolean validateFbiCd (String fbicdStr) throws IllegalArgumentException {
+    public Boolean validateFbiCd (String fbicdStr) throws IllegalArgumentException {
         //assume false
-        boolean isValid = false;
+        Boolean isValid = false;
         if (fbicdStr == null) {
             throw new NullPointerException("The FBI CD number is not initialised");
         }
@@ -574,8 +574,8 @@ public class CrimeRecord {
      * the CrimeRecords being compared
      */
     public Period millisBetween(CrimeRecord other) {
-        long thisMilli = this.getDate().getMillis();
-        long otherMilli = other.getDate().getMillis();
+        Long thisMilli = this.getDate().getMillis();
+        Long otherMilli = other.getDate().getMillis();
         return new Period(Math.abs(thisMilli - otherMilli));
     }
 
@@ -587,18 +587,18 @@ public class CrimeRecord {
      * @param other The CrimeRecord that the distance is measured to.
      * @return The distance in kilometers
      */
-    public double distanceBetween(CrimeRecord other) {
-        int earthRad = 6371;
-        double long1 = this.getCrimeLocation().getLongitude();
-        double long2 = other.getCrimeLocation().getLongitude();
-        double lat1 = this.getCrimeLocation().getLatitude();
-        double lat2 = other.getCrimeLocation().getLatitude();
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLong = Math.toRadians(long2 - long1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    public Double distanceBetween(CrimeRecord other) {
+        Integer earthRad = 6371;
+        Double long1 = this.getCrimeLocation().getLongitude();
+        Double long2 = other.getCrimeLocation().getLongitude();
+        Double lat1 = this.getCrimeLocation().getLatitude();
+        Double lat2 = other.getCrimeLocation().getLatitude();
+        Double dLat = Math.toRadians(lat2 - lat1);
+        Double dLong = Math.toRadians(long2 - long1);
+        Double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
                         Math.sin(dLong / 2) * Math.sin(dLong / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRad * c;
     }
 

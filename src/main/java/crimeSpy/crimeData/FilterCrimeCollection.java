@@ -4,6 +4,7 @@ package crimeSpy.crimeData;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,7 +27,7 @@ public class FilterCrimeCollection {
                                   String location, int beat, int ward, String block, String primary,
                                   String secondary, String IUCR, String FBICD, DateTime to, DateTime from) {
         CrimeCollection filterCollection = new CrimeCollection();
-        ArrayList<CrimeRecord> crimeRecords = CrimeCollectionManager.getFullWorkingCollection().getCrimes();
+        List<CrimeRecord> crimeRecords = CrimeCollectionManager.getFullWorkingCollection().getCrimes();
         for (CrimeRecord cR : crimeRecords) {
             if (isFilter(cR, domestic, arrest, crimeTypes, location, beat, ward, block, primary, secondary, FBICD,
                     IUCR, to, from)) {

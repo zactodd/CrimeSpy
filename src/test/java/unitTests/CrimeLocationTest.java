@@ -1,5 +1,6 @@
 package unitTests;
 
+import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,17 +62,6 @@ public class CrimeLocationTest {
 
 
     /**
-     * Tests that the constructor correctly creates the latLong array.
-     */
-    @Test
-    public void test_Constructor_latLong() {
-        double[] latLong = {latitude, longitude};
-        String errMsg = "The latLong array should be a double array of size two that looks like: [latitude, longitude]";
-        assertTrue(errMsg, Arrays.equals(crLoc.getLatLong(), latLong));
-    }
-
-
-    /**
      * Tests that updating longitude information also updates the required
      * data value in the latLong tuple. <br>
      * latLong : [latitude, longitude]
@@ -82,7 +72,7 @@ public class CrimeLocationTest {
         crLoc.setLatitude(newLat);
         String errMsg = "setLatitude() should also update the latLong array.";
         // latitude is the 0-th element in the array
-        assertEquals(errMsg, crLoc.getLatLong()[0], newLat, delta);
+        assertEquals(errMsg, crLoc.getLatLong().getKey(), newLat, delta);
     }
 
 
@@ -97,7 +87,7 @@ public class CrimeLocationTest {
         crLoc.setLongitude(newLong);
         String errMsg = "setLongitude() should also update the latLong array.";
         // longitude is the 1-th element in the array
-        assertEquals(errMsg, crLoc.getLatLong()[1], newLong, delta);
+        assertEquals(errMsg, crLoc.getLatLong().getValue(), newLong, delta);
     }
 
 
@@ -224,16 +214,6 @@ public class CrimeLocationTest {
         assertEquals(errMsg, crLoc.getLatitude(), this.latitude, delta);
     }
 
-
-    /**
-     * Test getLatLong();
-     */
-    @Test
-    public void test_getLatLong() {
-        String errMsg = "The latLong array did not match the expected value for getLatLong().";
-        double[] expected = {this.latitude, this.longitude};
-        assertTrue(errMsg, Arrays.equals(crLoc.getLatLong(), expected));
-    }
 
 
 

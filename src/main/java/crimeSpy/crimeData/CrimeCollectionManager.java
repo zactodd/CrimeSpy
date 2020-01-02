@@ -166,12 +166,12 @@ public class CrimeCollectionManager {
      * @return The first CrimeCollection with the contents of the second one that were successfully added to it.
      */
     public static CrimeCollection mergeCollections(CrimeCollection cC1, CrimeCollection cC2) {
-        int index = 0;
-        int arraySize = cC2.getCrimes().size();
+        Integer index = 0;
+        Integer arraySize = cC2.getCrimes().size();
 
         while (index < arraySize) {
-                // Check for uniqueness of CrimeID's by trying to add it
-            int res = cC1.addCrimeRecordtoDB(cC2.getCrimes().get(index));
+            // Check for uniqueness of CrimeID's by trying to add it
+            Integer res = cC1.addCrimeRecordtoDB(cC2.getCrimes().get(index));
             if (res == 0) {
                 index++;
             } else if (res == 1) {
@@ -233,12 +233,12 @@ public class CrimeCollectionManager {
     public static String validateIUCR(String iucrIn) {
         // Only the most pertinent message is sent back.
         // If you are adding constraints note that they are ordered from most to least important
-        boolean gotMessage = false;
+        Boolean gotMessage = false;
         String returnMessage = "";
-        int length = iucrIn.length();
+        Integer length = iucrIn.length();
         // Illegal character
         Character c;
-        for (int i = 0; i < length; i++) {
+        for (Integer i = 0; i < length; i++) {
             c = iucrIn.charAt(i);
             if (!Character.isDigit(c) && !Character.isAlphabetic(c)) {
                 returnMessage = "IUCR should be alphanumerical.";
@@ -266,12 +266,12 @@ public class CrimeCollectionManager {
     public static String validateWard(String wardIn) {
         // Only the most pertinent message is sent back.
         // If you are adding constraints note that they are ordered from most to least important
-        boolean gotMessage = false;
+        Boolean gotMessage = false;
         String returnMessage = "";
-        int length = wardIn.length();
+        Integer length = wardIn.length();
         // Illegal character
         Character c;
-        for (int i = 0; i < length; i++) {
+        for (Integer i = 0; i < length; i++) {
             c = wardIn.charAt(i);
             if (!Character.isDigit(c)) {
                 returnMessage = "Ward should be numerical.";
@@ -305,12 +305,12 @@ public class CrimeCollectionManager {
     public static String validateBeat(String beatIn) {
         // Only the most pertinent message is sent back.
         // If you are adding constraints note that they are ordered from most to least important
-        boolean gotMessage = false;
+        Boolean gotMessage = false;
         String returnMessage = "";
-        int length = beatIn.length();
+        Integer length = beatIn.length();
         // Illegal character
         Character c;
-        for (int i = 0; i < length; i++) {
+        for (Integer i = 0; i < length; i++) {
             c = beatIn.charAt(i);
             if (!Character.isDigit(c)) {
                 returnMessage = "A beat should be numerical.";
@@ -344,7 +344,7 @@ public class CrimeCollectionManager {
     public static String validateLatitude(String latitudeIn) {
         // Only the most pertinent message is sent back.
         // If you are adding constraints note that they are ordered from most to least important
-        boolean gotMessage = false;
+        Boolean gotMessage = false;
         String returnMessage = "";
 
         // Illegal character - ensure we only have numerical input first
@@ -390,7 +390,7 @@ public class CrimeCollectionManager {
     public static String validateLongitude(String longitudeIn) {
         // Only the most pertinent message is sent back.
         // If you are adding constraints note that they are ordered from most to least important
-        boolean gotMessage = false;
+        Boolean gotMessage = false;
         String returnMessage = "";
 
         // Illegal character - ensure we only have numerical input first
@@ -447,7 +447,7 @@ public class CrimeCollectionManager {
 
         Character c;
         //Check all digits
-        for (int i = 0; i < hourIn.length(); i++) {
+        for (Integer i = 0; i < hourIn.length(); i++) {
             c = hourIn.charAt(i);
             if (!Character.isDigit(c)) {
                 returnMessage = ("The Hour must be a digit");
@@ -488,7 +488,7 @@ public class CrimeCollectionManager {
         // Illegal character - ensure we only have numerical input first
         Character c;
         //Check all digits
-        for (int i = 0; i < minuteIn.length(); i++) {
+        for (Integer i = 0; i < minuteIn.length(); i++) {
             c = minuteIn.charAt(i);
             if (!Character.isDigit(c)) {
                 returnMessage = ("The Minute must be a digit");
@@ -519,7 +519,7 @@ public class CrimeCollectionManager {
      * @param cc Crime collection to populate with open crime records
      * @return 0 for success, 1 for read sql error, 2 for other read error
      */
-    public static int openKnownCrimeDB(CrimeCollection cc) {
+    public static Integer openKnownCrimeDB(CrimeCollection cc) {
         try {
             cc.populateCrimeRecords(SQLiteDBHandler.readCrimeRecords(cc.getDirectory()));
         } catch (SQLException e) {
@@ -615,7 +615,7 @@ public class CrimeCollectionManager {
      * 5 for write records sql error, 6 for other write record error,
      * 7 for write collection sql error, 8 for other collection write error,
      */
-    public static int importNewCrimeDB_Replace(File file) {
+    public static Integer importNewCrimeDB_Replace(File file) {
         String name = file.getName().replaceFirst(".csv", "");
         CrimeCollection newCC = new CrimeCollection(name, getLength(), file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 3) + "db");
         CrimeCollectionManager.currWorkingCollection = newCC;
@@ -671,7 +671,7 @@ public class CrimeCollectionManager {
      * @param saveLocation the save location and name of the file
      * @return 0 if success, 1 for error when writing crime records to csv
      */
-    public static int exportCrimeCSV(String saveLocation) {
+    public static Integer exportCrimeCSV(String saveLocation) {
         try {
             CSVFileHandler.writeCrimeRecords(CrimeCollectionManager.getCurrWorkingCollection(), saveLocation);
         } catch (Exception e) {
@@ -689,7 +689,7 @@ public class CrimeCollectionManager {
      * @return 0 if success, 1 if SQL exception on database creation, 2 if other exception on database creation,
      * 3 if SQL exception on crime record writing, 4 if other exception on crime record writing,
      */
-    public static int saveCrimeDB(Boolean filtered, String saveLocation) {
+    public static Integer saveCrimeDB(Boolean filtered, String saveLocation) {
         try {
             SQLiteDBHandler.createNewCrimedb(saveLocation);
         } catch (SQLException e) {

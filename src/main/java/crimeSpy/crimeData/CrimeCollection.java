@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * A collection of CrimeRecords. The class can store Crime records.
@@ -18,8 +15,8 @@ import java.util.HashSet;
 public class CrimeCollection {
 
 
-    private ArrayList<CrimeRecord> crimeList = new ArrayList<CrimeRecord>();
-    private HashSet<String> allCaseIDs = new HashSet<String>();
+    private List<CrimeRecord> crimeList = new ArrayList<CrimeRecord>();
+    private Set<String> allCaseIDs = new HashSet<String>();
     private String name = "";
     private Integer id = null;
     private String directory = "";
@@ -81,7 +78,7 @@ public class CrimeCollection {
      * Return an ArrayList of all CrimeRecords in the collection
      * @return Arraylist of all crimes in the collection
      */
-    public ArrayList<CrimeRecord> getCrimes() { return crimeList; }
+    public List<CrimeRecord> getCrimes() { return crimeList; }
 
 
     /**
@@ -104,7 +101,7 @@ public class CrimeCollection {
      * @return 0 if success, 1 if fail unique case ID, 2 if sql exception on writing database,
      * 3 if other exception on writing database
      */
-    public int addCrimeRecordtoDB(CrimeRecord cr) {
+    public Integer addCrimeRecordtoDB(CrimeRecord cr) {
         // verify that the caseId of the crime we are trying to add to the collection is unique
         String caseId = cr.getCaseID();
         if (!uniqueCaseIdCheck(caseId)) {
@@ -130,7 +127,7 @@ public class CrimeCollection {
      * @param cr a CrimeRecord to add to the CrimeCollection
      * @return 0 if success, 1 if fail unique case ID
      */
-    public int addCrimeRecord(CrimeRecord cr) {
+    public Integer addCrimeRecord(CrimeRecord cr) {
         // verify that the caseId of the crime we are trying to add to the collection is unique
         String caseId = cr.getCaseID();
         if (!uniqueCaseIdCheck(caseId)) {
@@ -148,7 +145,7 @@ public class CrimeCollection {
      * @param cr a CrimeRecord to update in the CrimeCollection
      * @return 0 if success, 1 if sql exception on writing database, 3 if other exception on writing to database
      */
-    public int updateCrimeRecord(CrimeRecord cr) {
+    public Integer updateCrimeRecord(CrimeRecord cr) {
         // verify that the caseId of the crime we are trying to add to the collection is unique
         try {
             SQLiteDBHandler.editCrimeRecord(cr);
@@ -167,7 +164,7 @@ public class CrimeCollection {
      * @param cR The caseID number of the crime which to remove from the CrimeCollection [String]
      * @return 0 if success, 1 if sql exception on deleting from database, 3 if other exception on deleting from database
      */
-    public int removeCrimeRecord(CrimeRecord cR) {
+    public Integer removeCrimeRecord(CrimeRecord cR) {
         try {
             SQLiteDBHandler.deleteCrimeRecord(cR.getCaseID());
         } catch (SQLException e) {
@@ -186,7 +183,7 @@ public class CrimeCollection {
      * @param caseId the case identification number of a CrimeRecord
      * @return true if unique
      */
-    private boolean uniqueCaseIdCheck(String caseId) {
+    private Boolean uniqueCaseIdCheck(String caseId) {
         return !allCaseIDs.contains(caseId);
     }
 
@@ -196,7 +193,7 @@ public class CrimeCollection {
      * Then sorts them by time
      * @param newCrimes An arraylist of crimerecords to add to the crime collection
      */
-    public void populateCrimeRecords(ArrayList<CrimeRecord> newCrimes) {
+    public void populateCrimeRecords(List<CrimeRecord> newCrimes) {
         for (CrimeRecord crime : newCrimes) {
             if (uniqueCaseIdCheck(crime.getCaseID())) {
                 this.crimeList.add(crime);
@@ -229,9 +226,9 @@ public class CrimeCollection {
             return 1;
         }
         Collections.sort(crimeList, new TimeComparator());
-        int numCrimes = this.getCrimes().size();
+        Integer numCrimes = this.getCrimes().size();
         CrimeRecord prevCrime = crimeList.get(0);
-        for (int i = 1; i < numCrimes; i++) {
+        for (Integer i = 1; i < numCrimes; i++) {
             prevCrime.setNextCrimeID(crimeList.get(i).getCaseID());
             crimeList.get(i).setPrevCrimeID(prevCrime.getCaseID());
             prevCrime = crimeList.get(i);

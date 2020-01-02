@@ -9,6 +9,7 @@ import crimeSpy.crimeData.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -45,7 +46,7 @@ public class CSVFileHandlerTest {
         // Prepare objects
         crime1 = new CrimeRecord("HX111111", date01, true, true, "111", "5", "080XX S " +
                 "HALSTED ST",
-                621, 21, 1172409 ,1851438, 41.8808655731203,  -87.7058761048492, "DEPARTMENT STORE");
+                621, 21, 1172409.0 ,1851438, 41.8808655731203,  -87.7058761048492, "DEPARTMENT STORE");
         crime2 = new CrimeRecord("HX111112", date02, true, false, "112", "6", "080XX S " +
                 "HALSTED ST",
                 621, 21, 1172409 ,1851438, 41.8808655731203,  -87.7058761048492, "DEPARTMENT STORE");
@@ -59,7 +60,7 @@ public class CSVFileHandlerTest {
 
         CSVFileHandler.writeCrimeRecords(cc, testFile1.getAbsolutePath());
 
-        ArrayList<CrimeRecord> results = CSVFileHandler.readCrimeRecords(testFile1.getAbsolutePath());
+        List<CrimeRecord> results = CSVFileHandler.readCrimeRecords(testFile1.getAbsolutePath());
         assertEquals("The resulting arraylist of crime records was not as expected", expectedResults.get(0).toString(), results.get(0).toString());
         assertEquals("The resulting arraylist of crime records was not as expected", expectedResults.get(1).toString(), results.get(1).toString());
     }
@@ -67,7 +68,7 @@ public class CSVFileHandlerTest {
 
     @Test
     public void testReadIUCRcodes() throws Exception {
-        ArrayList<String[]> result = CSVFileHandler.readIUCRcodes();
+        List<String[]> result = CSVFileHandler.readIUCRcodes();
 
         //First Element
         String[] expected1 = {"110","HOMICIDE","FIRST DEGREE MURDER","I"};

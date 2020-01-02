@@ -2,6 +2,7 @@ package crimeSpy.crimeData;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -87,10 +88,7 @@ public class SearchCrimeCollection {
      * @param searchCollection the collection to search
      */
     private static void searchUsingPhrase(String phrase, CrimeCollection searchCollection){
-
-        ArrayList<CrimeRecord> crimeRecords = CrimeCollectionManager.getCurrWorkingCollection().getCrimes();
-
-
+        List<CrimeRecord> crimeRecords = CrimeCollectionManager.getCurrWorkingCollection().getCrimes();
         for(CrimeRecord cR : crimeRecords){
             if(isSearch(cR, phrase)){
                 searchCollection.addCrimeRecord(cR);

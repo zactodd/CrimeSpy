@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.*;
 
 
@@ -72,14 +73,19 @@ public class SQLiteDBHandler {
 
         OR_Map cr = new OR_Map(crime);
 
-        String sql = "INSERT INTO CRIME_RECORD (CRIME_RECORD_ID, CRIME_RECORD_DATE, CRIME_RECORD_BLOCK, " +
-                "CRIME_RECORD_LOCATION_DESCRIPTION, CRIME_RECORD_ARREST, CRIME_RECORD_DOMESTIC, " +
-                "CRIME_RECORD_BEAT, CRIME_RECORD_WARD, CRIME_RECORD_XCOORDINATE, CRIME_RECORD_YCOORDINATE, " +
-                "CRIME_RECORD_LATITUDE, CRIME_RECORD_LONGITUDE, CRIME_RECORD_LOCATIONSTR, PREV_CRIME_RECORD, " +
-                "NEXT_CRIME_RECORD, CRIME_TYPE_ID, CRIME_RECORD_FBICD) " +
-                "VALUES (" + cr.toDBCreateString() + ")";
-        stmt.executeUpdate(sql);
-        c.commit();
+
+        String sql = "SELECT * FROM CRIME_RECORD WHERE CRIME_RECORD_ID == '" + cr.getId() + "'";
+        ResultSet resultSet = stmt.executeQuery(sql);
+        if (!resultSet.next()) {
+            sql = "INSERT INTO CRIME_RECORD (CRIME_RECORD_ID, CRIME_RECORD_DATE, CRIME_RECORD_BLOCK, " +
+                    "CRIME_RECORD_LOCATION_DESCRIPTION, CRIME_RECORD_ARREST, CRIME_RECORD_DOMESTIC, " +
+                    "CRIME_RECORD_BEAT, CRIME_RECORD_WARD, CRIME_RECORD_XCOORDINATE, CRIME_RECORD_YCOORDINATE, " +
+                    "CRIME_RECORD_LATITUDE, CRIME_RECORD_LONGITUDE, CRIME_RECORD_LOCATIONSTR, PREV_CRIME_RECORD, " +
+                    "NEXT_CRIME_RECORD, CRIME_TYPE_ID, CRIME_RECORD_FBICD) " +
+                    "VALUES (" + cr.toDBCreateString() + ")";
+            stmt.executeUpdate(sql);
+            c.commit();
+        }
 
         LOGGER.info("Record created successfully");
         stmt.close();
@@ -493,7 +499,7 @@ public class SQLiteDBHandler {
      * @throws SQLException could not populate the IUCR codes
      */
     private static void populateIUCR(String location) throws Exception {
-        ArrayList<String[]> iucrCodes = CSVFileHandler.readIUCRcodes();
+        List<String[]> iucrCodes = CSVFileHandler.readIUCRcodes();
         Connection c = null;
         Statement stmt = null;
         Class.forName("org.sqlite.JDBC");

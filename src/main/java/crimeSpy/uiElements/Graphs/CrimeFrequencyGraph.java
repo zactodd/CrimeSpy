@@ -67,7 +67,7 @@ public class CrimeFrequencyGraph implements CrimeSpyCharts {
                 new BarChart<String,Number>(xAxis,yAxis);
         barChart.setTitle("Frequency of Crime Type");
         HashMap<String, Integer> barData = new HashMap<String, Integer>();
-        int total = 0;
+        Integer total = 0;
         //Ensure there is data
         if (CrimeCollectionManager.getCurrWorkingCollection() != null) {
             total = CrimeCollectionManager.getCurrWorkingCollection().getCrimes().size();

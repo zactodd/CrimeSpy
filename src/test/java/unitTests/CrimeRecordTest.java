@@ -57,8 +57,8 @@ public class CrimeRecordTest {
     private Integer ward = 21;
     private double xCoord = 1172409;
     private double yCoord = 1851438;
-    private double longitude = -87.70587610484924;
-    private double latitude = 41.8808655731203;
+    private Double longitude = -87.70587610484924;
+    private Double latitude = 41.8808655731203;
     private String location = "DEPARTMENT STORE";
     private Integer prevCrimeID;
     private Integer nextCrimeID;
@@ -70,11 +70,11 @@ public class CrimeRecordTest {
     private CrimeRecord emptyCr;
     private CrimeRecord emptyCr_EmptyConstructor;
     private DateTime date2 = DateTimeFormat.forPattern("MM/dd/yyyy HH:mm:ss a").parseDateTime("6/27/2014 7:35:00 PM");
-    private double longitude2 = -87.60364133299082;
-    private double latitude2 = 41.8045418862783;
+    private Double longitude2 = -87.60364133299082;
+    private Double latitude2 = 41.8045418862783;
 
-    private double myLong = 174.828859;
-    private double myLat = -41.321576;
+    private Double myLong = 174.828859;
+    private Double myLat = -41.321576;
 
     private static CrimeCollection testCC;
     private static File testCrimeDB   = new File("TestCrimeDB.db"); // File to read iucr codes from

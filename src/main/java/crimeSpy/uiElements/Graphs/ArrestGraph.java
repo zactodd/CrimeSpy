@@ -57,8 +57,8 @@ public class ArrestGraph implements CrimeSpyCharts {
      */
     private void graph(){
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        int noArrest = 0;
-        int arrests = 0;
+        Integer noArrest = 0;
+        Integer arrests = 0;
 
         // Ensure there is data
         if (CrimeCollectionManager.getCurrWorkingCollection() != null) {

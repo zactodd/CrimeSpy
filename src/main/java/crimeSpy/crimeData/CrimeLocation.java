@@ -1,5 +1,7 @@
 package crimeSpy.crimeData;
 
+import javafx.util.Pair;
+
 /**
  * The CrimeLocation class is intended to be used for location data storage and
  * methods for the CrimeRecord.
@@ -78,12 +80,12 @@ public class CrimeLocation {
     private String block;
     private Integer beat;
     private Integer ward;
-    private double xCoordinate;
-    private double yCoordinate;
-    private double longitude;
-    private double latitude;
+    private Double xCoordinate;
+    private Double yCoordinate;
+    private Double longitude;
+    private Double latitude;
     private String locationStr;
-    private double[] latLong;
+    private Pair<Double, Double> latLong;
 
 
     /**
@@ -106,8 +108,8 @@ public class CrimeLocation {
      * @param location a textual description of the location of the crime
      */
     public CrimeLocation(String block, Integer beat, Integer ward,
-                         double xCoordinate, double yCoordinate,
-                         double latitude, double longitude, String location) {
+                         Double xCoordinate, Double yCoordinate,
+                         Double latitude, Double longitude, String location) {
         // Now setters in the case of non primitive data types: for additional null checks
         this.setBlock(block);
         this.setBeat(beat);
@@ -196,7 +198,7 @@ public class CrimeLocation {
      * Get the Map X coordinate as given by Chicago Police Department's CLEAR system
      * @return the xCoordinate of crime location [double]
      */
-    public double getxCoordinate() {
+    public Double getxCoordinate() {
         return xCoordinate;
     }
 
@@ -205,7 +207,7 @@ public class CrimeLocation {
      * Set the Map X coordinate as given by Chicago Police Department's CLEAR system
      * @param xCoordinate of crime location [double]
      */
-    public void setxCoordinate(double xCoordinate) {
+    public void setxCoordinate(Double xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
@@ -214,7 +216,7 @@ public class CrimeLocation {
      * Get the Map Y coordinate as given by Chicago Police Department's CLEAR system
      * @return the yCoordinate of crime location [double]
      */
-    public double getyCoordinate() {
+    public Double getyCoordinate() {
         return yCoordinate;
     }
 
@@ -223,7 +225,7 @@ public class CrimeLocation {
      * Set the Map Y coordinate as given by Chicago Police Department's CLEAR system
      * @param yCoordinate of crime location [double]
      */
-    public void setyCoordinate(double yCoordinate) {
+    public void setyCoordinate(Double yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
@@ -232,7 +234,7 @@ public class CrimeLocation {
      * Get the longitude of location of crime
      * @return the longitude of location of crime [double]
      */
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
@@ -241,9 +243,8 @@ public class CrimeLocation {
      * Set the longitude of location of crime
      * @param longitude of location of crime [double]
      */
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
-        this.setLatLong(this.getLatitude(), longitude);
     }
 
 
@@ -251,7 +252,7 @@ public class CrimeLocation {
      * Get the latitude of location of crime
      * @return latitude of location of crime [double]
      */
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
@@ -261,9 +262,8 @@ public class CrimeLocation {
      * the double tuple latLong[]
      * @param latitude of location of crime [double]
      */
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
-        this.setLatLong(latitude, this.getLongitude());
     }
 
 
@@ -296,8 +296,8 @@ public class CrimeLocation {
      * @param latitude latitude of location of crime [double]
      * @param longitude longitude of location of crime [double]
      */
-    public void setLatLong(double latitude, double longitude) {
-        this.latLong = new double[] {latitude, longitude};
+    public void setLatLong(Double latitude, Double longitude) {
+        this.latLong = new Pair<>(latitude, longitude);
     }
 
 
@@ -305,7 +305,8 @@ public class CrimeLocation {
      * Get latLong: a tuple that describes the {latitude, longitude} of the crime
      * @return {latitude, longitude} of location of crime {[double], [double]}
      */
-    public double[] getLatLong() {
+    public Pair<Double, Double> getLatLong() {
+        this.setLatLong(latitude, longitude);
         return this.latLong;
     }
 }

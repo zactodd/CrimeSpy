@@ -64,7 +64,7 @@ public class CrimeLocationGraph implements CrimeSpyCharts {
         final BarChart<String,Number> barChart =
                 new BarChart<String,Number>(xAxis,yAxis);
         HashMap<String, Integer> barData = new HashMap<String, Integer>();
-        int total = 0;
+        Integer total = 0;
         //Ensure there is data
         if (CrimeCollectionManager.getCurrWorkingCollection() != null) {
             total =  CrimeCollectionManager.getCurrWorkingCollection().getCrimes().size();

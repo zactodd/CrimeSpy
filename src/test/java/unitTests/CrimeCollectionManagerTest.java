@@ -15,6 +15,7 @@ import crimeSpy.crimeData.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -213,7 +214,8 @@ public class CrimeCollectionManagerTest {
         // Prepare
         PowerMockito.mockStatic(SQLiteDBHandler.class);
         File dbFile = new File("test/directory/crimedata.db");
-        PowerMockito.when(SQLiteDBHandler.readCrimeRecords(Mockito.anyString())).thenReturn(testCC_01.getCrimes());
+        PowerMockito.when(SQLiteDBHandler.readCrimeRecords(Mockito.anyString())).
+                thenReturn((ArrayList<CrimeRecord>) testCC_01.getCrimes());
 
         // Execute
         int errCode = CrimeCollectionManager.openUnknownCrimeDB(dbFile);
@@ -227,7 +229,8 @@ public class CrimeCollectionManagerTest {
         // Prepare
         PowerMockito.mockStatic(SQLiteDBHandler.class);
         testCC_01.setDirectory("test/directory/crimedata.db");
-        PowerMockito.when(SQLiteDBHandler.readCrimeRecords(Mockito.anyString())).thenReturn(testCC_01.getCrimes());
+        PowerMockito.when(SQLiteDBHandler.readCrimeRecords(Mockito.anyString())).
+                thenReturn((ArrayList<CrimeRecord>) testCC_01.getCrimes());
 
         // Execute
         int errCode = CrimeCollectionManager.openKnownCrimeDB(testCC_01);
@@ -245,7 +248,8 @@ public class CrimeCollectionManagerTest {
         testCC_01.setDirectory("test/directory/crimedata.db");
         CrimeCollectionManager.addCrimeCollection(testCC_01);
         File csvFile = new File("test/directory/crimedata.csv");
-        PowerMockito.when(CSVFileHandler.readCrimeRecords(Mockito.anyString())).thenReturn(testCC_01.getCrimes());
+        PowerMockito.when(CSVFileHandler.readCrimeRecords(Mockito.anyString())).
+                thenReturn((ArrayList<CrimeRecord>) testCC_01.getCrimes());
 
         // Execute
         int errCode = CrimeCollectionManager.importNewCrimeDB_Append(csvFile);
@@ -263,7 +267,8 @@ public class CrimeCollectionManagerTest {
         PowerMockito.mockStatic(SQLiteDBHandler.class);
         File csvFile1 = new File("test/directory/crimedata.db");
         File csvFile2 = new File("test/directory/crimedatadb");
-        PowerMockito.when(CSVFileHandler.readCrimeRecords(Mockito.anyString())).thenReturn(testCC_01.getCrimes());
+        PowerMockito.when(CSVFileHandler.readCrimeRecords(Mockito.anyString())).
+                thenReturn((ArrayList<CrimeRecord>) testCC_01.getCrimes());
 
         // Execute
         int errCode = CrimeCollectionManager.importNewCrimeDB_Replace(csvFile1);
@@ -340,10 +345,10 @@ public class CrimeCollectionManagerTest {
 
         // testCC_01 has two records in it
         // testCC_02 is empty
-        ArrayList<CrimeRecord> expectedSet = testCC_01.getCrimes();
+        List<CrimeRecord> expectedSet = testCC_01.getCrimes();
 
         CrimeCollection resultCC = CrimeCollectionManager.mergeCollections(testCC_01, testCC_02);
-        for (int i = 0; i < expectedSet.size(); i++) {
+        for (Integer i = 0; i < expectedSet.size(); i++) {
             assertEquals("Merging of an empty set into a non-empty one changes it, when it shouldn't", expectedSet.get(i), testCC_01.getCrimes().get(i));
         }
     }
@@ -358,10 +363,10 @@ public class CrimeCollectionManagerTest {
 
         // testCC_01 has two records in it
         // testCC_02 is empty
-        ArrayList<CrimeRecord> expectedSet = testCC_01.getCrimes();
+        List<CrimeRecord> expectedSet = testCC_01.getCrimes();
 
         CrimeCollection resultCC = CrimeCollectionManager.mergeCollections(testCC_02, testCC_01);
-        for (int i = 0; i < expectedSet.size(); i++) {
+        for (Integer i = 0; i < expectedSet.size(); i++) {
             assertEquals("Merging of an non-empty set into an empty one changes it incorrectly", expectedSet.get(i), testCC_02.getCrimes().get(i));
         }
     }
@@ -378,12 +383,12 @@ public class CrimeCollectionManagerTest {
         testCC_02.addCrimeRecord(testCR_03);
         testCC_02.addCrimeRecord(testCR_05);
 
-        ArrayList<CrimeRecord> expectedSet = testCC_01.getCrimes();
+        List<CrimeRecord> expectedSet = testCC_01.getCrimes();
         expectedSet.add(testCR_03);
         expectedSet.add(testCR_05);
 
         CrimeCollection resultCC = CrimeCollectionManager.mergeCollections(testCC_01, testCC_02);
-        for (int i = 0; i < expectedSet.size(); i++) {
+        for (Integer i = 0; i < expectedSet.size(); i++) {
             assertEquals("Merging of two, non-empty sets done incorrectly", expectedSet.get(i), testCC_01.getCrimes().get(i));
         }
     }
@@ -401,7 +406,7 @@ public class CrimeCollectionManagerTest {
         testCC_02.addCrimeRecord(testCR_03);
         testCC_02.addCrimeRecord(testCR_11); //testCR_11 is the same as test_CR01 in testCC_01
 
-        ArrayList<CrimeRecord> expectedSet = testCC_01.getCrimes();
+        List<CrimeRecord> expectedSet = testCC_01.getCrimes();
         expectedSet.add(testCR_03);
 
         CrimeCollection resultCC = CrimeCollectionManager.mergeCollections(testCC_01, testCC_02);
@@ -436,7 +441,7 @@ public class CrimeCollectionManagerTest {
 
         // Test all resulting records which should have been modified
         String[] originalID = {testCR_01.getCaseID(),testCR_02.getCaseID(),testCR_03.getCaseID(),testCR_04.getCaseID(),testCR_05.getCaseID(),testCR_06.getCaseID()};
-        for (int i = 6; i < 12; i++) {
+        for (Integer i = 6; i < 12; i++) {
             assertNotEquals("Non unique CR didn't have char appended to it", originalID[i-6], testCC_01.getCrimes().get(i));
             assertEquals("Non unique CR " + i + " didn't have just one char appended to it", 9, testCC_01.getCrimes().get(i).getCaseID().length());
         }
@@ -453,11 +458,10 @@ public class CrimeCollectionManagerTest {
         // testCC_01 has two records in it
         testCC_02.addCrimeRecord(testCR_11);
 
-        int limit = 11;
-        int i = 0;
-        while (i < limit) {
+        Integer limit = 11;
+        Integer i = 0;
+        while (i++ < limit) {
             testCC_01 = CrimeCollectionManager.mergeCollections(testCC_01, testCC_02);
-            i++;
         }
         assertEquals("Not all records were added", limit+2, testCC_01.getCrimes().size());
     }

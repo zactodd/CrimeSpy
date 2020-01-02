@@ -11,7 +11,7 @@ public class CrimeType {
     /**
      * Describes the minimum acceptable IUCR code length
      */
-    public final static int MIN_IUCR_LENGTH = 2;
+    public final static Integer MIN_IUCR_LENGTH = 2;
 
     /**
      * Describes the acceptable IUCR code format
@@ -58,9 +58,9 @@ public class CrimeType {
      * @return true iff the string matches the pattern of a valid iucr code. false otherwise.
      * @throws IllegalArgumentException
      */
-    public boolean validateIucr(String iucrStr) throws IllegalArgumentException {
+    public Boolean validateIucr(String iucrStr) throws IllegalArgumentException {
         //assume false
-        boolean isValid = false;
+        Boolean isValid = false;
         if (iucrStr == null) {
             throw new NullPointerException("The IUCR is not initialised");
         }
@@ -92,7 +92,7 @@ public class CrimeType {
         String originalIucr = this.getIucr();
         StringBuffer capitalisedIucr = new StringBuffer();
         Character c;
-        for (int i = 0; i < originalIucr.length(); i++) {
+        for (Integer i = 0; i < originalIucr.length(); i++) {
             c = originalIucr.charAt(i);
             if (Character.isLowerCase(c)) {
                 capitalisedIucr.append(Character.toUpperCase(c));
@@ -195,7 +195,7 @@ public class CrimeType {
     public void capitaliseIucr(String iucrStr) {
         StringBuffer capitalisedIucr = new StringBuffer();
         Character c;
-        for (int i = 0; i < iucrStr.length(); i++) {
+        for (Integer i = 0; i < iucrStr.length(); i++) {
             c = iucrStr.charAt(i);
             if (Character.isLowerCase(c)) {
                 capitalisedIucr.append(Character.toUpperCase(c));
@@ -205,7 +205,5 @@ public class CrimeType {
         }
         this.setIucr(capitalisedIucr.toString());
     }
-
-
 }
 

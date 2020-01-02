@@ -1498,7 +1498,7 @@ public class CrimeSpyController {
      */
     private void initFilter() {
         try {
-            ArrayList<CrimeRecord> currentRecords = CrimeCollectionManager.getCurrWorkingCollection().getCrimes();
+            List<CrimeRecord> currentRecords = CrimeCollectionManager.getCurrWorkingCollection().getCrimes();
             HashSet<String> crimeTypes = new HashSet();
             filterCrimeType.getChildren().clear();
             String crimeType;

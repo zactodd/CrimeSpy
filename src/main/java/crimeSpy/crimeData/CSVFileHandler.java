@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.*;
 import java.util.zip.DataFormatException;
 
@@ -96,7 +97,7 @@ public class CSVFileHandler {
      * @throws java.io.FileNotFoundException The database could not be found
      * @throws IOException The database is corrupted
      */
-    public static ArrayList<CrimeRecord> readCrimeRecords(String location) throws Exception {
+    public static List<CrimeRecord> readCrimeRecords(String location) throws Exception {
         BufferedReader br = null;
         String line = "";
         ArrayList<CrimeRecord> results = new ArrayList<CrimeRecord>();
@@ -192,9 +193,9 @@ public class CSVFileHandler {
      * A short method that reads the IUCR codes from a csv file stored in the working directory.
      * @return a Arraylist of String[], each of a different IUCR code
      */
-    public static ArrayList<String[]> readIUCRcodes() {
+    public static List<String[]> readIUCRcodes() {
         BufferedReader br = null;
-        ArrayList<String[]> result = new ArrayList<String[]>();
+        List<String[]> result = new ArrayList<String[]>();
         try {
             br = new BufferedReader(new FileReader("IUCRcodes.csv"));
             String line = "";

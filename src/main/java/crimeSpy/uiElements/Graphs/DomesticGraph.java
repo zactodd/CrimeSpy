@@ -34,8 +34,8 @@ public class DomesticGraph implements CrimeSpyCharts {
      */
     private void graph() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        int domestic = 0;
-        int noDomestic = 0;
+        Integer domestic = 0;
+        Integer noDomestic = 0;
 
         // Ensure there is data to chart!
         if (CrimeCollectionManager.getCurrWorkingCollection() != null) {
