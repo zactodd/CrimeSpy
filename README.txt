@@ -52,6 +52,9 @@ Execution of .jar From Command Line
     Linux  :> java -jar crimeSpy.jar
     Windows:> java -jar crimeSpy.jar
 
+Data
+~~~~
+New data can be obtained from https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2 .
 
 Developers
 ~~~~~~~~~~
