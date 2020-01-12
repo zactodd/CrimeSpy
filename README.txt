@@ -56,10 +56,3 @@ Data
 ~~~~
 New data can be obtained from https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2 .
 
-Developers
-~~~~~~~~~~
-Zachary Todd
-Nicolas Robinson-O'Brien
-Patrick Nicholls
-Ben Moskovitz
-James Bayly
