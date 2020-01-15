@@ -52,9 +52,34 @@ The dataset can be filtered by selection various option in the filter pane. For 
   <img src="tutorial/filter.png" width=1000>
 </p>
 
-As there is limit to how many pins can be selected on the map you can switch to heatmap view to see where crimes are most prevalent. 
+As there is a limit to how many pins can be selected on the map you can switch to heatmap view to see where crimes are most prevalent. 
 <p align="center">
   <img src="tutorial/heatmap.png" width=1000>
 </p>
+
+Clicking on the table view, you can see a spreadsheet of data, on double clicking a table row the right will pop up showing the information. The filter pane can also be minimised by click the left verticle button which then enable more rows to read in the table view.
+<p align="center">
+  <img src="tutorial/table_view.png" width=1000>
+</p>
+
+
+The right pane display the data of the row and also includes a map at the  bootom of the pane showing the local area whwre the crime occured. The right pane can also be used to edit, delete or rest table rows. Rows can also be deleted directly on the spreaded sheet pressing the DEL key.
+<p align="center">
+  <img src="tutorial/table_view_enlarge.png" width=1000>
+</p>
+
+The final feature we will go other is the summary statitics view. It shows five plot. The plots can be enlarged into the centre by double clicking on the plot you want to enlarge.
+
+<p align="center">
+  <img src="tutorial/summary.png" width=1000>
+</p>
+
+<p align="center">
+  <img src="tutorial/switching_plots.png" width=1000>
+</p>
+
+
+
+
 
 
