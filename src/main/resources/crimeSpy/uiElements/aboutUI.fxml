@@ -24,7 +24,7 @@
                     </font>
                 </Label>
                 <Label fx:id="detailsLabel1" layoutX="10.0" layoutY="34.0"
-                       text="Created by Nic O’Brien, Ben Moskovitz, Patrick Nicholls, Zachary Todd and James Bayly"
+                       text="Created by Zachary Todd and Others"
                        textAlignment="LEFT" wrapText="true">
                     <font>
                         <Font size="12.0"/>
