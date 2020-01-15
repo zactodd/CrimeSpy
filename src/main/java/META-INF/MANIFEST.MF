@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
 Main-Class: crimeSpy.Main
+Class-Path: powermock-api-support-1.6.2.jar joda-time-2.8.1.jar openjfx-
+ dialogs-1.0.3.jar powermock-module-junit4-common-1.6.2.jar controlsfx-8
+ .20.9.jar mockito-all-1.10.19.jar powermock-reflect-1.6.2.jar powermock
+ -api-mockito-1.6.2.jar javassist-3.19.0-GA.jar powermock-module-junit4-
+ 1.6.2.jar sqlite-jdbc-3.8.11.1.jar objenesis-2.1.jar powermock-core-1.6
+ .2.jar
 
